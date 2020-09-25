@@ -22,4 +22,6 @@ const SnippetSchema = new Schema(
     }
 )
 
+const Snippet = mongoose.model("Snippet", SnippetSchema)
+
 module.exports = Snippet
