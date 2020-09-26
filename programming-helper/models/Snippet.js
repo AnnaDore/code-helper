@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const SnippetSchema = new Schema(
+const snippetSchema = new Schema(
     {
         name: {
             type: String,
             required: true,
-            unique: true,
-            minlength: 3,
+           /*  unique: true,
+            minlength: 3, */
         },
         description: {
             type: String
@@ -15,13 +15,15 @@ const SnippetSchema = new Schema(
         snippet: {
             type: String,
             required: true,
-            unique: true
+           /*  unique: true */
         },
         connections: [{type: Schema.Types.ObjectId, ref: 'Snippet'}],
-        tags: [{type: Schema.Types.ObjectId, ref: "Tag"}]
+        tags: [{ type: String} ]
+        //tags: [{type: Schema.Types.ObjectId, ref: "Tag"}]
     }
 )
 
-const Snippet = mongoose.model("Snippet", SnippetSchema)
+const Snippet = mongoose.model("Snippet", snippetSchema)
 
 module.exports = Snippet
+
