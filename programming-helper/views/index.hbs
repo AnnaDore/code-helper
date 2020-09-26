@@ -8,6 +8,21 @@
     <li>login</li>
 </ul>
 
+<p>
+    <form action="/all" method="GET">
+        <input type="text" name="search" placeholder="Find a code!">
+        <input type="submit" value="search">
+    </form>
+</p>
+<br>
 <a href="/all">Go to the all snippets page (remove later)</a>
 <br>
 <a href="/create">go to the create snippet page (remove later)</a>
+
+
+{{#if errorMessage}}
+    <p>{{ errorMessage }}</p>
+{{/if}}
+
+
+{{!-- onkeyup="showResults(this.value)"  --}}

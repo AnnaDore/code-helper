@@ -22,4 +22,8 @@
    <button type="submit">Yes</button>
 </form>
 
-<a href="/">Back</a>
+<a href="/">Home</a>
+
+{{#if errorMessage}}
+    <p>{{ errorMessage }}</p>
+{{/if}}

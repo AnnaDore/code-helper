@@ -12,3 +12,8 @@
 
 <a href="/">Home</a>
 <a href="/snippet/{{data.id}}/edit">Edit</a>
+<a href="/delete/{{data.id}}">Remove</a>
+
+{{#if errorMessage}}
+    <p>{{ errorMessage }}</p>
+{{/if}}
