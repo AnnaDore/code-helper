@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const extensionSchema = new Schema (
     {
-      //  _id: mongoose.Schema.Types.ObjectId, 
+      
         name: {
             type: String,
             /* required: true */

@@ -1,24 +1,24 @@
-<form action="/snippet/{{data.id}}" method="post">
+<form action="/snippet/{{id}}" method="post">
     <label for="name">Snippet name</label>
-    <input type="text" name='name' value="{{data.name}}">
+    <input type="text" name='name' value="{{snippet.name}}">
     <br>
      <label for="description">Snippet description</label>
-    <input type="text" name="description" value="{{data.description}}">
+    <input type="text" name="description" value="{{snippet.description}}">
     <br>
      <label for="snippet">Snippet</label>
-    <input type="text" name="snippet" value="{{data.snippet}}">
+    <input type="text" name="snippet" value="{{snippet.snippet}}">
     <br>
 
-     <label for="connections">Snippet connections</label>
-    <input type="search" name="connections"  value="{{data.snippet}}">
+   
+   
 
 <br>
-     <label for="tags">Tags</label>
+    {{!--  <label for="tags">Tags</label>
     <select  name="tags" id="tags" multiple>
         {{#each data}}
         <option value="{{name}}">{{name}}</option>
          {{/each}}
-    </select>
+    </select> --}}
    <button type="submit">Yes</button>
 </form>
 

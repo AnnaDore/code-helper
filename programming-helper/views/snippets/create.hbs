@@ -1,19 +1,38 @@
 <form action="create" method="post">
     <label for="name">Snippet name</label>
-    <input type="text" name='name' >
+    <input type="text" name='name'>
     <br>
-     <label for="description">Snippet description</label>
+    <label for="description">Snippet description</label>
     <input type="text" name="description">
     <br>
-     <label for="snippet">Snippet</label>
+    <label for="snippet">Snippet</label>
     <input type="text" name="snippet">
     <br>
 
-   <button type="submit">Yes</button>
+    <label for="extension">Extension</label>
+    <select name="extension" id="">
+
+        <option disabled>Choose the extension</option>
+        {{#each extension as |item|}}
+        <option value="{{item}}">{{item}}</option>
+        {{/each}}
+
+    </select>
+    <label for="tags">Tags</label>
+    <select name="tag" id="">
+        <option disabled>Choose a tag</option>
+        {{#each tag  as |item|}}
+        <option value="{{item}}">{{item}}</option>
+        {{/each}}
+
+
+    </select>
+   {{!--  {{log this}} --}}
+    <button type="submit">Yes</button>
 </form>
 
 <a href="/">Back</a>
 
 {{#if errorMessage}}
-    <p>{{ errorMessage }}</p>
+<p>{{ errorMessage }}</p>
 {{/if}}

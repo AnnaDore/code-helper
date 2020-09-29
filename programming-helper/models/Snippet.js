@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const snippetSchema = new Schema(
     {
-       // _id: mongoose.Schema.Types.ObjectId, 
+      
         name: {
             type: String,
             required: true,
@@ -20,8 +20,8 @@ const snippetSchema = new Schema(
         },
         connections: [{type: Schema.Types.ObjectId, ref: 'Snippet'}],
       // tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
-        tags: {
-            type: [String], 
+        tag: {
+            type: String, 
             enum: [
                 "FrontEnd", 
                 "BackEnd"
@@ -29,12 +29,15 @@ const snippetSchema = new Schema(
         },
        // extension: {type: Schema.Types.ObjectId, ref: 'Extension'}
        extension: {
-           type: [String], 
+           type: String, 
            enum: [
                "HTML", 
                "CSS", 
                "JS"
            ]
+       }, 
+       imageUrl: {
+           type: String
        }
     }
 )

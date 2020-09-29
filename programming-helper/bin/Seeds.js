@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Tag = require("../models/Tag");
 const Snippet = require("../models/Snippet");
 const Extension = require('../models/Extension')
-
+/* 
 const tagData = [
   {
     name: "FE",
@@ -35,7 +35,7 @@ const extensionData = [
     imageUrl: "js.jpg"
   }
 
-]
+] */
 
 mongoose
   .connect("mongodb://localhost/programming-helper", { useNewUrlParser: true })
@@ -50,7 +50,7 @@ mongoose
   });
 
 
-mongoose
+/* mongoose
 .connect("mongodb://localhost/programming-helper", { useNewUrlParser: true })
 .then((x) => {
   console.log(
@@ -60,4 +60,4 @@ mongoose
 })
 .catch((err) => {
   console.error("Error connecting to mongo", err);
-});
+}); */

@@ -45,6 +45,7 @@ router.get("/snippet/:id", (req, res, next) => {
     .then((data) => {
       console.log(data);
       res.render("snippets/oneSnippet", data);
+    // res.send(data)
     })
     .catch((err) => {
       console.log(err);
@@ -52,66 +53,50 @@ router.get("/snippet/:id", (req, res, next) => {
 });
 
 router.get("/create", (req, res, next) => {
-  res.render("snippets/create");
+  const tag = Snippet.schema.path('tag').enumValues
+  const extension = Snippet.schema.path('extension').enumValues
+  Promise.all([extension, tag])
+  .then(data => {
+    console.log(data)
+    console.log(data[0])
+    res.render("snippets/create", {extension: data[0], tag: data[1]});
+  })
 });
 
 router.post("/create", (req, res, next) => {
-  const { name, description, snippet } = req.body;
+  const { name, description, snippet, extension, tag } = req.body;
   console.log(req.body);
-  console.log("62");
+  let imageUrl;
+  if (extension === "HTML") {
+    imageUrl = "/images/html.jpg"
+  } else if (extension === 'CSS') {
+    imageUrl = '/images/css.jpg'
+  } else {
+    imageUrl = '/images/js.jpg'
+  }
   Snippet.create({
-    // _id: id,
     name: name,
     description: description,
     snippet: snippet,
-  }).then(() => {
-    console.log(req.params);
-    console.log("71");
-    Snippet.findById(req.params.id)
-      .then((data) => {
-        console.log(data);
-        res.render("snippets/oneSnippet", {data});
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    extension: extension, 
+    tag: tag, 
+    imageUrl: imageUrl
+  }).then((snippet) => {
+    console.log(snippet)
+      res.redirect(`/snippet/${snippet._id}`);
   });
 });
 
-/* 
 
-
-router.post('/create', (req, res, next) => {
-  const { name, description, snippet } = req.body
-  const snippetCreate =   Snippet.create({
-    name: name, 
-    description: description,
-    snippet: snippet,
-  })
-  const snippetFind = Snippet.find({name: name})
-
- snippetCreate
-  .then(() => {
-    Snippet.find({name: name})
-    .then(() => {
-      res.redirect('/snippet/:id')
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  })
-  .catch(err => {
-    console.log(err)
-  })
-})
-
-
-
-router.get('/snippet/:id/edit', (req, res, next) => {
-  Snippet.findById(req.params.id)
+router.get('/snippet/edit/:id', (req, res, next) => {
+  console.log(req.params.id)
+  const tag = Snippet.schema.path('tag').enumValues
+  const extension = Snippet.schema.path('extension').enumValues
+  const snippet =  Snippet.findById(req.params.id)
+  Promise.all([snippet, extension, tag])
   .then(data => {
-    console.log(data)
-    res.render('snippets/edit', {data})
+    console.log(data)-
+    res.render('snippets/edit', {snippet: data[0], extension: data[1], tag: data[2]})
   })
   .catch(err => {
     console.log(err)
@@ -120,9 +105,9 @@ router.get('/snippet/:id/edit', (req, res, next) => {
 
 router.post('/snippet/:id', (req, res, next) => {
   console.log("82")
-  const { name, description, snippet, tags } = req.body
+  const { name, description, snippet } = req.body
   console.log(req.body.name)
-  Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: { name, description, snippet, tags}}, {new : true})
+  Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: { name, description, snippet}}, {new : true})
   .then(data => {
     console.log("85")
     console.log(data)
@@ -144,7 +129,7 @@ router.get('/delete/:id', (req, res, next) => {
     console.log(err)
   })
 })
- */
+ 
 //search attempt
 /* 
 router.get('/search', (req, res, next) => {
