@@ -106,12 +106,12 @@ router.get('/snippet/edit/:id', (req, res, next) => {
 router.post('/snippet/:id', (req, res, next) => {
   console.log("82")
   const { name, description, snippet } = req.body
-  console.log(req.body.name)
+  console.log(req.body)
   Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: { name, description, snippet}}, {new : true})
   .then(data => {
     console.log("85")
     console.log(data)
-    res.render('snippets/oneSnippet', {data})
+    res.render('snippets/oneSnippet', data)
   })
   .catch(err => {
     console.log(err)

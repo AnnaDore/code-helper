@@ -1,4 +1,4 @@
-<form action="/snippet/{{id}}" method="post">
+<form action="/snippet/{{snippet.id}}" method="post">
     <label for="name">Snippet name</label>
     <input type="text" name='name' value="{{snippet.name}}">
     <br>
@@ -6,7 +6,10 @@
     <input type="text" name="description" value="{{snippet.description}}">
     <br>
      <label for="snippet">Snippet</label>
-    <input type="text" name="snippet" value="{{snippet.snippet}}">
+         <textarea name="snippet" id="" cols="30" rows="10"  class="scroll-box">
+       {{snippet.snippet}}
+    </textarea>
+    {{!-- <input type="text" name="snippet" value="{{snippet.snippet}}"> --}}
     <br>
 
    
