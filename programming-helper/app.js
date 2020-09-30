@@ -37,6 +37,16 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
+
+/* //handlebars
+hbs.registerHelper('getSnippetName', function(otherSnippets){
+  let array = []
+  for (let i = 0; i <= otherSnippets.length; i++) {
+    
+    return arr[i]
+  }
+}) */
+
       
 
 app.set('views', path.join(__dirname, 'views'));

@@ -1,26 +1,38 @@
 
 <div>
    
-    <p>Name: {{name}}</p>
-    <p>Descriptopn: {{description}}</p>
+    <p>Name: {{oneSnippet.name}}</p>
+    <p>Descriptopn: {{oneSnippet.description}}</p>
 {{!--     <div>
          <p>Code snippet: {{snippet}}</p>
          
     </div> --}}
    <div>
-       <textarea class="scroll-box">{{snippet}}</textarea>
+       <textarea disabled class="scroll-box">{{oneSnippet.snippet}}</textarea>
    </div>
-    <p>{{tag}}</p>
-    <p>{{extension}}</p>
-    <img src="{{imageUrl}}" alt="">
+    <p>{{oneSnippet.tag}}</p>
+    <p>{{oneSnippet.extension}}</p>
+    <img src="{{oneSnippet.imageUrl}}" alt="">
+    
+</div>
+
+<div>
+    <p>Do you want to conenct this file?</p>
+   <select multiple name="connectionsId" id="">
+        <option disabled>{{otherSnippets.[0].name}}</option>
+        {{#each otherSnippets.[i] as |item| }}
+            <p value="{{item.id}}">{{item.name}}</p>
+        {{/each}}
+    </select> 
 </div>
 
 <a href="#">Add tags and extension</a>
 
-<a href="/">Home</a>
-<a href="/snippet/edit/{{_id}}">Edit</a>
-<a href="/delete/{{_id}}">Remove</a>
 
+<a href="/snippet/edit/{{oneSnippet._id}}">Edit</a>
+<a href="/delete/{{oneSnippet._id}}">Remove</a>
+<br>
+<a href="/">Home</a>
 {{#if errorMessage}}
     <p>{{ errorMessage }}</p>
 {{/if}}
