@@ -125,8 +125,8 @@ router.post('/snippet/:id', (req, res, next) => {
   
   Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: { name, description, snippet}}, {new : true})
   .then(data => {
-
-    res.render('snippets/oneSnippet', data)
+    res.redirect('/snippet/' + req.params.id)
+    //res.render('snippets/oneSnippet', data)
   })
   .catch(err => {
     console.log(err)
