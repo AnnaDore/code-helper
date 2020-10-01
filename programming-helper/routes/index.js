@@ -46,7 +46,7 @@ router.get("/all", (req, res, next) => {
 
 
 router.get('/snippet/:id', (req, res, next) => {
-  const oneSnippet = Snippet.findById(req.params.id)
+  const oneSnippet = Snippet.findById(req.params.id).populate("connections")
   const otherSnippets = Snippet.find()
   Promise.all([oneSnippet, otherSnippets])
   .then(data => {
@@ -54,6 +54,18 @@ router.get('/snippet/:id', (req, res, next) => {
     console.log(data[1])
     res.render('snippets/oneSnippet', {oneSnippet: data[0], otherSnippets: data[1]})
     
+  })
+  .catch(err => {
+    console.log(err)
+  })
+})
+
+router.post('/snippet/:id', (req, res, next) => {
+  const { connections } = req.body;
+  Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: {connections}}, {new: true})
+  .then(data => {
+    console.log(data)
+    res.redirect('/snippet/' + req.params.id)
   })
   .catch(err => {
     console.log(err)
@@ -105,7 +117,7 @@ router.post("/create",  async (req, res, next) => {
 });
 
 
-router.get('/snippet/edit/:id', (req, res, next) => {
+router.get('/snippet/edit/:id', checkLogin, (req, res, next) => {
   
   const tag = Snippet.schema.path('tag').enumValues
   const extension = Snippet.schema.path('extension').enumValues
@@ -135,7 +147,7 @@ router.post('/snippet/:id', (req, res, next) => {
   })
 })
 
-router.get('/delete/:id', (req, res, next) => {
+router.get('/delete/:id', checkLogin, (req, res, next) => {
   console.log('97')
   Snippet.findByIdAndDelete({_id: req.params.id})
   .then(() => {

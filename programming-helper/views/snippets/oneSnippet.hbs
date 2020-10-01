@@ -1,35 +1,41 @@
 <h1>to do here: list of the connections</h1>
 <div>
-   
+
     <p>Name: {{oneSnippet.name}}</p>
     <p>Descriptopn: {{oneSnippet.description}}</p>
-{{!--     <div>
+    {{!--     <div>
          <p>Code snippet: {{snippet}}</p>
          
     </div> --}}
-   <div>
-       <textarea disabled class="scroll-box">{{oneSnippet.snippet}}</textarea>
-   </div>
+    <div>
+        <textarea disabled class="scroll-box">{{oneSnippet.snippet}}</textarea>
+    </div>
     <p>{{oneSnippet.tag}}</p>
     <p>{{oneSnippet.extension}}</p>
     <img src="{{oneSnippet.imageUrl}}" alt="">
-    
+    <p>Below is the list of the connections</p>
+        {{#each oneSnippet.connections}}
+            <p>{{name}}</p>
+        {{/each}}
+  
 </div>
 
 <div>
     <p>Do you want to conenct this file?</p>
-   <select multiple name="connectionsId" id="" >
-        <option disabled>{{otherSnippets.[0].name}}</option>
-        {{#each otherSnippets }}
-            <option value="{{_id}}">{{name}}</option>
-            
-        {{/each}} 
-    </select> 
-    <button type='submit'></button>
+    <form action="/snippet/{{oneSnippet.id}}" method="post">
+        <select multiple name="connections" id="">
+            <option disabled>{{otherSnippets.[0].name}}</option>
+            {{#each otherSnippets }}
+            <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+        <button type='submit'>Add the connections</button>
 </div>
-{{#each otherSnippets}}
+</form>
+
+{{!-- {{#each otherSnippets}}
     <p>{{name}}</p>
-{{/each}}
+{{/each}} --}}
 
 
 
@@ -38,5 +44,5 @@
 <br>
 <a href="/">Home</a>
 {{#if errorMessage}}
-    <p>{{ errorMessage }}</p>
+<p>{{ errorMessage }}</p>
 {{/if}}
