@@ -3,11 +3,10 @@ const Schema = mongoose.Schema
 
 const snippetSchema = new Schema(
     {
-      
         name: {
             type: String,
             required: true,
-            unique: true,
+            unique: [true, "Name was used already"],
             minlength: 3, 
         },
         description: {
@@ -16,7 +15,7 @@ const snippetSchema = new Schema(
         snippet: {
             type: String,
             required: true,
-            unique: true 
+            unique: [true, 'Snippet like this was already created'] 
         },
         connections: [{type: Schema.Types.ObjectId, ref: 'Snippet'}],
    
@@ -27,7 +26,6 @@ const snippetSchema = new Schema(
                 "BackEnd"
             ]
         },
-   
        extension: {
            type: String, 
            enum: [
@@ -38,6 +36,9 @@ const snippetSchema = new Schema(
        }, 
        imageUrl: {
            type: String
+       }, 
+       creator: {
+           type: Schema.Types.ObjectId, ref: 'User'
        }
     }
 )

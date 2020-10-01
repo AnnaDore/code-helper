@@ -41,10 +41,12 @@ router.post('/signup', (req, res, next) => {
             passwordHash: hashedPassword
         })
     })
-    .then(user => {
+     .then(user => {
+        req.session.currentUser = user;
         console.log(`New user is: ${user}`)
-        res.render('users/userProfile', {user});
-    })
+        res.redirect(`/auth/user/${user._id}`);
+         
+    }) 
     .catch(error => {
         if (error instanceof mongoose.Error.ValidationError) {
             res.status(500).render('auth/signup', { errorMessage: error.message });
@@ -67,7 +69,7 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', (req, res, next) => {
-    console.log('SESSION =====> ', req.session)
+    console.log('req.session is', req.session)
     const { email, password } = req.body
 
     if (email === '' || password === '') {
@@ -76,7 +78,7 @@ router.post('/login', (req, res, next) => {
         })
         return
     }
-
+    
     User.findOne({ email })
     .then(user => {
         if (!user) {
@@ -86,7 +88,7 @@ router.post('/login', (req, res, next) => {
             return
         } else if (bcrypt.compareSync(password, user.passwordHash)) {
             req.session.currentUser = user;
-            res.redirect('/userProfile');
+            res.redirect(`/auth/user/${user._id}`);
         } else {
             res.render('auth/login',{  errorMessage: "Incorrect password" })
         }
@@ -96,7 +98,8 @@ router.post('/login', (req, res, next) => {
     })
 })
 
-router.get('/userProfile', (req, res) => {
+router.get(`/auth/user/:id`, (req, res) => {
+    console.log(req.session.currentUser)
     res.render('users/userProfile', { userInSession: req.session.currentUser });
   });
 
@@ -105,4 +108,4 @@ router.post('/logout', (req, res, next) => {
     res.redirect('/')
 })
  
-module.exports = router;
+module.exports = router

@@ -21,7 +21,8 @@ const userSchema = new Schema(
         passwordHash: {
             type: String, 
             requred: [true, "Password is required"]
-        }
+        }, 
+        snippets: [{type: Schema.Types.ObjectId, ref: 'Snippet' }]
     }, 
     {
         timestamp: true

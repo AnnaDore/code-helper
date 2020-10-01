@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const Tag = require("../models/Tag");
+//const Tag = require("../models/Tag");
 const Snippet = require("../models/Snippet");
-const Extension = require('../models/Extension')
+//const Extension = require('../models/Extension')
 
 
 mongoose
@@ -10,7 +10,7 @@ mongoose
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
-    return Tag.insertMany(tagData)
+    //return Tag.insertMany(tagData)
   })
   .catch((err) => {
     console.error("Error connecting to mongo", err);

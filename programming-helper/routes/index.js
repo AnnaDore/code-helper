@@ -2,9 +2,13 @@ const express = require("express");
 const { render } = require("../app");
 const router = express.Router();
 const { get } = require("mongoose");
-const Tag = require("../models/Tag");
+
 const Snippet = require("../models/Snippet");
-const Extension = require("../models/Extension");
+
+const checkLogin = require('../middleware/checkLogin')
+const session = require('../configs/session.config')
+const User = require('../models/User')
+const mongoose = require('mongoose')
 
 /* GET home page */
 router.get("/", (req, res, next) => {
@@ -40,17 +44,6 @@ router.get("/all", (req, res, next) => {
   }
 });
 
-/* router.get("/snippet/:id", (req, res, next) => {
-  Snippet.findById(req.params.id)
-    .then((data) => {
-      console.log(data);
-      res.render("snippets/oneSnippet", data);
- 
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}); */
 
 router.get('/snippet/:id', (req, res, next) => {
   const oneSnippet = Snippet.findById(req.params.id)
@@ -67,20 +60,21 @@ router.get('/snippet/:id', (req, res, next) => {
   })
 })
 
-router.get("/create", (req, res, next) => {
+router.get("/create", checkLogin, (req, res, next) => {
+  console.log(req.session.currentUser, "userCreateGet")
   const tag = Snippet.schema.path('tag').enumValues
   const extension = Snippet.schema.path('extension').enumValues
   Promise.all([extension, tag])
   .then(data => {
-    console.log(data)
-   
-    res.render("snippets/create", {extension: data[0], tag: data[1]});
+     console.log(data)
+    res.render("snippets/create", {extension: data[0], tag: data[1]}); 
   })
 });
 
-router.post("/create", (req, res, next) => {
+router.post("/create",  async (req, res, next) => {
   const { name, description, snippet, extension, tag } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
+  console.log(req.session.currentUser, "user")
   let imageUrl;
   if (extension === "HTML") {
     imageUrl = "/images/html.jpg"
@@ -89,17 +83,25 @@ router.post("/create", (req, res, next) => {
   } else {
     imageUrl = '/images/js.jpg'
   }
-  Snippet.create({
-    name: name,
-    description: description,
-    snippet: snippet,
-    extension: extension, 
-    tag: tag, 
-    imageUrl: imageUrl
-  }).then((snippet) => {
-    console.log(snippet)
-      res.redirect(`/snippet/${snippet._id}`);
-  });
+  try {
+    const snippetVar =  await Snippet.create({
+      name: name,
+      description: description,
+      snippet: snippet,
+      extension: extension, 
+      tag: tag, 
+      imageUrl: imageUrl,
+      creator: req.session.currentUser._id
+    })
+
+    console.log(snippetVar, "snippetVar")
+    await User.findByIdAndUpdate({_id: req.session.currentUser._id}, {$set: {snippets: snippetVar._id}})
+     res.redirect(`/snippet/${snippetVar._id}`);  
+  }
+  catch(e) {
+    console.log(e)
+  }
+
 });
 
 

@@ -3,7 +3,7 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose')
 
 module.exports = app => {
-    app.use(
+   /*  app.use(
         session({
             secret: process.env.SESSION_SECRET,
             resave: false,
@@ -14,6 +14,6 @@ module.exports = app => {
                 ttl: 60 * 60 * 24 // sec min h = day
             })
         })
-    )
+    ) */
 }
 
