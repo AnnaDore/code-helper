@@ -7,8 +7,8 @@ const snippetSchema = new Schema(
         name: {
             type: String,
             required: true,
-           /*  unique: true,
-            minlength: 3, */
+            unique: true,
+            minlength: 3, 
         },
         description: {
             type: String
@@ -16,10 +16,10 @@ const snippetSchema = new Schema(
         snippet: {
             type: String,
             required: true,
-           /*  unique: true */
+            unique: true 
         },
         connections: [{type: Schema.Types.ObjectId, ref: 'Snippet'}],
-      // tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
+   
         tag: {
             type: String, 
             enum: [
@@ -27,7 +27,7 @@ const snippetSchema = new Schema(
                 "BackEnd"
             ]
         },
-       // extension: {type: Schema.Types.ObjectId, ref: 'Extension'}
+   
        extension: {
            type: String, 
            enum: [
