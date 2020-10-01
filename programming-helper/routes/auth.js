@@ -41,9 +41,9 @@ router.post('/signup', (req, res, next) => {
             passwordHash: hashedPassword
         })
     })
-    .then(userFromDB => {
-        console.log(`New user is: ${userFromDB}`)
-        res.render('users/user-profile', {userFromDB});
+    .then(user => {
+        console.log(`New user is: ${user}`)
+        res.render('users/user-profile', {user});
     })
     .catch(error => {
         if (error instanceof mongoose.Error.ValidationError) {
@@ -59,7 +59,39 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.get('/userProfile', (req, res) => {
-    res.redirect('/userProfile')
+    res.render('users/user-profile')
 });
+
+router.get('/login', (req, res) => {
+    res.render('auth/login')
+});
+
+router.post('/login', (req, res, next) => {
+    const { email, password } = req.body
+
+    if (email === '' || password === '') {
+        res.render('auth/login', {
+            errorMessage: 'Please put email and password'
+        })
+        return
+    }
+
+    User.findOne({ email })
+    .then(user => {
+        if (!user) {
+            res.render('auth/login', {
+                errorMessage: "Email is not registered"
+            })
+            return
+        } else if (bcrypt.compareSync(password, user.passwordHash)) {
+            res.render('users/user-profile', { user })
+        } else {
+            res.render('auth/login',{  errorMessage: "Incorrect password" })
+        }
+    })
+    .catch (err => {
+        next(err)
+    })
+})
  
 module.exports = router;
