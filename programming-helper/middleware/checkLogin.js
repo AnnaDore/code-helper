@@ -8,6 +8,7 @@ const checkLogin = (req, res, next) => {
         
         next()
     } else {
+       // alert('Ypu need to be logged in to use this feature')
         console.log(req.session.currentUser)
         res.redirect('/signup')
     }

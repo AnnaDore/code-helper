@@ -60,7 +60,7 @@ router.get('/snippet/:id', (req, res, next) => {
   })
 })
 
-router.post('/snippet/:id', (req, res, next) => {
+router.post('/snippet/:id', checkLogin, (req, res, next) => {
   const { connections } = req.body;
   Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: {connections}}, {new: true})
   .then(data => {
