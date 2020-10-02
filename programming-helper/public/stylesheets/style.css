@@ -50,9 +50,13 @@ header {
   text-decoration: none;
   color: black;
 }
+
 .nav {
-  display: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
+
 /* 1st page with the search  */
 
 .banner {
@@ -61,8 +65,8 @@ header {
   width: 100%;
   height: 100vh;
   background: linear-gradient(
-      rgba(255, 255, 255, 0.1),
-      rgba(255, 255, 255, 0.1)
+      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.4)
     ),
     url(/images/first-page.jpg);
   background-size: cover;
@@ -73,16 +77,16 @@ header {
   box-sizing: border-box;
 }
 
-.example {
+/* .example {
   padding: 10px 0 10px 10px;
-}
+} */
 
 /* Style the search field */
 form.example input[type=text] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
-  float: left;
+  float: right;
   width: 80%;
   background: #f1f1f1;
 }
@@ -92,7 +96,7 @@ form.example button {
   float: left;
   width: 20%;
   padding: 10px;
-  background: #2196F3;
+  background: #44E37D;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
@@ -101,7 +105,7 @@ form.example button {
 }
 
 form.example button:hover {
-  background: #0b7dda;
+  background: #0EA945;
 }
 
 /* Clear floats */
@@ -111,17 +115,117 @@ form.example::after {
   display: table;
 }
 
-
-
-
-
-
-
-a {
-  color: #00B7FF;
+.example {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0 10px 10px;
 }
 
-img{
+/* .welcome {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+.first-page {
+  margin-top: 60px;
+}
+
+/* text part on the 1st page */
+
+.welcome {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.welcome h1 {
+  font-size: 2.5em;
+}
+
+.main-search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.main-search-input {
+  padding: 10px 30px;
+ margin-bottom: 20px;
+ height: 50px;
+ width: 300px;
+
+}
+
+.main-search-btn {
+  padding: 10px 50px;
+  margin-bottom: 70px;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 200px;
+  background-color: #CAE7DC;
+}
+
+.all-search-btn {
+ font-size: 1.1em;
+ font-weight: bold;
+ width: 300px;
+ padding: 10px;
+ background-color: #A1C0B5;
+}
+
+/* all snippets page */
+
+.banner-all {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.4),
+      rgba(255, 255, 255, 0.4)
+    ),
+    url(/images/alotofcode.jpeg);
+  background-size: cover;
+}
+
+.all-snippets {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-around;
+  margin-top: 80px;
+}
+
+.one-snippet {
+  display: flex;
+  flex-direction: row;
+  background-color: red;
+  align-items: center;
+  
+}
+
+.one-snippet-info {
+
+}
+
+.one-snippet-image  {
+  
+  
+}
+
+img {
   height: 100px;
 }
 
@@ -133,6 +237,8 @@ code {
 .scroll-box{
   height:400px;width:400px;overflow:auto;background-color:yellowgreen;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;
 }
+
+
 
 
 
@@ -212,16 +318,27 @@ footer {
   background-color: #0077b5;
 }
 
-
-
-@media screen and (min-width: 481px) and (max-width: 768) {
+@media screen and (max-width:480px) {
 
 }
 
-@media screen and (min-width: 769px) and (max-width: 1024) {
-  
+@media screen and (min-width: 481px) and (max-width: 768px) {
+
+ body {
+  background-color: red;
+ }
 }
 
-@media screen and  (min-width: 1025px) {
-  
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+
+  body {
+    background-color: blue;
+   }
+}
+
+@media  (min-width: 1025px) {
+
+  body {
+    background-color: green;
+   }
 }

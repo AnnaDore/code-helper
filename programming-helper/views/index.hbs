@@ -1,43 +1,18 @@
+<div class="first-page">
+    <div class="banner"></div>
+    <div class="welcome">
+        <div class="welcome-search"></div>
+        <h1>Find your code</h1>
 
-{{#if errorMessage}}
-<p>{{ errorMessage }}</p>
-{{/if}}
-
-
-
-
-    <header>
-        <form class="example" action="/all" method="GET">
-            <input type="text" name="search" placeholder="Find a code!">
-            <button type="submit"><i class="fa fa-search"></i></button>
+        <form class="main-search" action="/all" method="GET">
+            <input class="main-search-input" type="search" name="search" placeholder="Find a code!">
+            <input class="main-search-btn" type="submit" value="Find it!">
         </form>
-        <div class="container">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-        <div class="nav">
-            <ul>
-                <a href="/signup">Signup</a>
-                <a href="/login">Login</a>
-            </ul>
-            <form id="logout-form" action="/logout" method="POST">
-                <button>Log out</button>
+        <div class="all-search">
+                            <form class='main-search-all' action="/all">
+                <input class="all-search-btn" type="submit" value="Check all snippets!">
             </form>
         </div>
-    </header>
 
-
-<div class="banner">
-    <p>
-<form action="/all" method="GET">
-    <input type="text" name="search" placeholder="Find a code!">
-    <input type="submit" value="search">
-</form>
-</p>
-<br>
-<a href="/all">Go to the all snippets page (remove later)</a>
-<br>
-<a href="/create">go to the create snippet page (remove later)</a>
-<br>
+    </div>
 </div>

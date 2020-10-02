@@ -1,23 +1,17 @@
-
-
-{{#each data}}
+<div class="all-snippets">
+    <div class="banner-all"></div>
+    {{#each data}}
     <a href="/snippet/{{id}}">
-    <div>
-        <p>Name: {{name}}</p>
-        <p>Descriptopn: {{description}}</p>
-        <p>Code snippet: {{snippet}}</p>
-        <p>Ext {{extension}}</p>
-        <p>Tag {{tag}}</p>
-        <img src="{{imageUrl}}" alt="">
-        
-    </div>
-</a>
-    
-{{/each}}
-
-
-<a href="/">Home</a>
-
-{{#if errorMessage}}
-    <p>{{ errorMessage }}</p>
-{{/if}}
+        <div class="one-snippet">
+            <div class="one-snippet-image">
+                <img src="{{imageUrl}}" alt="image extension">
+            </div>
+            <div class="one-snippet-info">
+                <h4>{{name}}</h4>
+                <p>{{description}}</p>
+                <p><i>{{tag}}</i></p>
+            </div>
+        </div>
+    </a>
+    {{/each}}
+</div>

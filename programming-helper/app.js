@@ -46,6 +46,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Register the location for handlebars partials here:
+hbs.registerPartials(path.join(__dirname, 'views/partials'))
+
 // Express View engine setup
 app.use(require('node-sass-middleware')({
   src:  path.join(__dirname, 'public'),

@@ -7,15 +7,31 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{title}}</title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+  <header>
+    <form class="example" action="/all" method="GET">
+      <input id="search" type="search" name="search" placeholder="Find a code!">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
 
+    <div class="nav">
+      {{#if userInSession}}
+      <a href="/auth/user/{{userInSession._id}}">{{userInSession.username}}</a>
+      <form id="logout-form" action="/logout" method="POST">
+        <button>Log out</button>
+      </form>
+      {{else}}
+      <a href="/signup">Signup</a>
+      {{/if}}
+
+
+    </div>
+  </header>
+ 
   {{{body}}}
   <footer id="footer-scroll">
     <div class="wrapper">
