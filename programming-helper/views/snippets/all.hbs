@@ -1,17 +1,19 @@
-<div class="all-snippets">
+<div class="all-page">
     <div class="banner-all"></div>
-    {{#each data}}
-    <a href="/snippet/{{id}}">
+    <div class="all-snippets">
+        {{#each data}}
         <div class="one-snippet">
-            <div class="one-snippet-image">
-                <img src="{{imageUrl}}" alt="image extension">
-            </div>
-            <div class="one-snippet-info">
-                <h4>{{name}}</h4>
-                <p>{{description}}</p>
-                <p><i>{{tag}}</i></p>
-            </div>
+            <a class="real-one" href="/snippet/{{id}}">
+                <div class="one-snippet-image">
+                    <img src="{{imageUrl}}" alt="image extension">
+                </div>
+                <div class="one-snippet-info">
+                    <h4>{{name}}</h4>
+                    <p>{{description}}</p>
+                    <p><i>{{tag}}</i></p>
+                </div>
+            </a>
         </div>
-    </a>
-    {{/each}}
+        {{/each}}
+    </div>
 </div>

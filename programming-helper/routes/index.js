@@ -72,7 +72,7 @@ router.post('/snippet/:id', checkLogin, (req, res, next) => {
   })
 })
 
-router.get("/create", checkLogin, (req, res, next) => {
+router.get("/create",  checkLogin, (req, res, next) => {
   console.log(req.session.currentUser, "userCreateGet")
   const tag = Snippet.schema.path('tag').enumValues
   const extension = Snippet.schema.path('extension').enumValues

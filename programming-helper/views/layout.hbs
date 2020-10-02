@@ -17,7 +17,6 @@
       <input id="search" type="search" name="search" placeholder="Find a code!">
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
-
     <div class="nav">
       {{#if userInSession}}
       <a href="/auth/user/{{userInSession._id}}">{{userInSession.username}}</a>
@@ -27,11 +26,8 @@
       {{else}}
       <a href="/signup">Signup</a>
       {{/if}}
-
-
     </div>
   </header>
- 
   {{{body}}}
   <footer id="footer-scroll">
     <div class="wrapper">
