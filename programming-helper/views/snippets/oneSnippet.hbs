@@ -1,48 +1,37 @@
-<h1>to do here: list of the connections</h1>
-<div>
-
-    <p>Name: {{oneSnippet.name}}</p>
-    <p>Descriptopn: {{oneSnippet.description}}</p>
-    {{!--     <div>
-         <p>Code snippet: {{snippet}}</p>
-         
-    </div> --}}
-    <div>
-        <textarea disabled class="scroll-box">{{oneSnippet.snippet}}</textarea>
-    </div>
-    <p>{{oneSnippet.tag}}</p>
-    <p>{{oneSnippet.extension}}</p>
-    <img src="{{oneSnippet.imageUrl}}" alt="">
-    <p>Below is the list of the connections</p>
-        {{#each oneSnippet.connections}}
+<div class="one-snippet-page">
+    <div class="banner-one-snippet"></div>
+    <div class="one-snippet-whole">
+        <div class="one-snippet-info">
+            <h3>{{oneSnippet.name}}</h3>
+            <p> {{oneSnippet.description}}</p>
+            <p>{{oneSnippet.tag}}</p>
+            <p>{{oneSnippet.extension}}</p>
+            <p>List of the connections: </p>
+            {{#each oneSnippet.connections}}
             <p>{{name}}</p>
-        {{/each}}
-  
-</div>
-
-<div>
-    <p>Do you want to conenct this file?</p>
-    <form action="/snippet/{{oneSnippet.id}}" method="post">
-        <select multiple name="connections" id="">
-            <option disabled>{{otherSnippets.[0].name}}</option>
-            {{#each otherSnippets }}
-            <option value="{{id}}">{{name}}</option>
             {{/each}}
-        </select>
-        <button type='submit'>Add the connections</button>
+        </div>
+        <div class="code-snippet">
+            <textarea disabled class="scroll-box">{{oneSnippet.snippet}}</textarea>
+        </div>
+    </div>
+    <div class="add-connection">
+        <p>Do you want to conenct this file?</p>
+        <form action="/snippet/{{oneSnippet.id}}" method="post">
+            <select multiple name="connections" id="">
+                <option disabled>{{otherSnippets.[0].name}}</option>
+                {{#each otherSnippets }}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
+            <button type='submit'>Add the connections</button>
+        </form>
+    </div>
+    <div class="snippet-buttons">
+        <a href="/snippet/edit/{{oneSnippet._id}}">Edit</a>
+        <a href="/delete/{{oneSnippet._id}}">Remove</a>
+    </div>
+    {{#if errorMessage}}
+    <p>{{ errorMessage }}</p>
+    {{/if}}
 </div>
-</form>
-
-{{!-- {{#each otherSnippets}}
-    <p>{{name}}</p>
-{{/each}} --}}
-
-
-
-<a href="/snippet/edit/{{oneSnippet._id}}">Edit</a>
-<a href="/delete/{{oneSnippet._id}}">Remove</a>
-<br>
-<a href="/">Home</a>
-{{#if errorMessage}}
-<p>{{ errorMessage }}</p>
-{{/if}}

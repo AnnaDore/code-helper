@@ -1,4 +1,5 @@
-<form action="/snippet/{{snippet.id}}" method="post">
+<div class="permanent">
+    <form action="/snippet/{{snippet.id}}" method="post">
     <label for="name">Snippet name</label>
     <input type="text" name='name' value="{{snippet.name}}">
     <br>
@@ -28,3 +29,5 @@
 {{#if errorMessage}}
     <p>{{ errorMessage }}</p>
 {{/if}}
+</div>
+

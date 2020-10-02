@@ -20,13 +20,21 @@ function escapeRegex(text) {
 }
 
 router.get("/all", (req, res, next) => {
-  console.log(req.query.search);
   if (req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     Snippet.find({ name: regex })
       .then((data) => {
-        console.log(data);
-        res.render("snippets/all", { data });
+        if(data) {
+          res.render("snippets/all", { data });
+          console.log("data true")
+          
+        } else {
+          console.log("data false")
+          res.render('snippets/empty-search')
+        }
+
+        
+        //res.render("snippets/all", { data });
       })
       .catch((err) => {
         console.log(err);
@@ -34,8 +42,6 @@ router.get("/all", (req, res, next) => {
   } else {
     Snippet.find()
       .then((data) => {
-        // console.log(data)
-
         res.render("snippets/all", { data });
       })
       .catch((err) => {
@@ -50,8 +56,6 @@ router.get('/snippet/:id', (req, res, next) => {
   const otherSnippets = Snippet.find()
   Promise.all([oneSnippet, otherSnippets])
   .then(data => {
-    console.log(data[1][0].name)
-    console.log(data[1])
     res.render('snippets/oneSnippet', {oneSnippet: data[0], otherSnippets: data[1]})
     
   })
@@ -64,7 +68,6 @@ router.post('/snippet/:id', checkLogin, (req, res, next) => {
   const { connections } = req.body;
   Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: {connections}}, {new: true})
   .then(data => {
-    console.log(data)
     res.redirect('/snippet/' + req.params.id)
   })
   .catch(err => {
@@ -78,7 +81,6 @@ router.get("/create",  checkLogin, (req, res, next) => {
   const extension = Snippet.schema.path('extension').enumValues
   Promise.all([extension, tag])
   .then(data => {
-     console.log(data)
     res.render("snippets/create", {extension: data[0], tag: data[1]}); 
   })
 });
@@ -118,13 +120,11 @@ router.post("/create",  async (req, res, next) => {
 
 
 router.get('/snippet/edit/:id', checkLogin, (req, res, next) => {
-  
-  const tag = Snippet.schema.path('tag').enumValues
+   const tag = Snippet.schema.path('tag').enumValues
   const extension = Snippet.schema.path('extension').enumValues
   const snippet =  Snippet.findById(req.params.id)
   Promise.all([snippet, extension, tag])
   .then(data => {
-    console.log(data)-
     res.render('snippets/edit', {snippet: data[0], extension: data[1], tag: data[2]})
   })
   .catch(err => {
@@ -133,12 +133,9 @@ router.get('/snippet/edit/:id', checkLogin, (req, res, next) => {
 })
 
 router.post('/snippet/:id', (req, res, next) => {
-  console.log("82")
   const { name, description, snippet } = req.body
-  console.log(req.body)
-  
   Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: { name, description, snippet}}, {new : true})
-  .then(data => {
+  .then(() => {
     res.redirect('/snippet/' + req.params.id)
     //res.render('snippets/oneSnippet', data)
   })
@@ -148,10 +145,8 @@ router.post('/snippet/:id', (req, res, next) => {
 })
 
 router.get('/delete/:id', checkLogin, (req, res, next) => {
-  console.log('97')
   Snippet.findByIdAndDelete({_id: req.params.id})
   .then(() => {
-    console.log('99')
     res.redirect('/all')
   })
   .catch(err => {
@@ -194,9 +189,6 @@ Snippet.find({
    const tags = Tag.find()
   const snippet = Snippet.find({name: "dodo"}).populate('tags')
   Promise.all([tags, snippet]) 
-
-  
-
    .then(data => {
     console.log(data)
     res.render('test', {data})
