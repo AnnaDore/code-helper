@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{title}}</title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
-    <nav>
-    <ul>
-      <li id="to-left">
-        <p><a href="/"> Code paradise </a></p>
-      </li>
-      <li id="to-right">
-        <a href="/signup">Signup</a> <span> | </span>
-        <a href="/login">Login</a> {{!-- !!! --}}
-        <form id="logout-form" action="/logout" method="POST">
-    <button>Logout</button>
-  </form>
-      </li>
-    </ul>
-  </nav>
+
   {{{body}}}
-  
+  <footer id="footer-scroll">
+    <div class="wrapper">
+      <div>
+        <p>Second Dodo's project</p>
+      </div>
+      <div class="icons">
+        <ul>
+          <li>
+            <a href="https://www.linkedin.com/in/anna-dorenskaia-155b7b129"><i class="fa fa-linkedin"></i></a>
+          </li>
+          <li>
+            <a href="https://github.com/AnnaDore"><i class="fa fa-github"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="/javascripts/script.js"></script>
 </body>
+
 </html>

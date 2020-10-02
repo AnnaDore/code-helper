@@ -1,7 +1,121 @@
+/* general */
+@import url('https://fonts.googleapis.com/css2?family=Varela&display=swap');
+
+html {
+  
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-family: 'Varela', "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0
 }
+
+/* header */
+
+.container div {
+  position: relative;
+  background-color: #5b5e6d;
+  width: 40px;
+  height: 2px;
+  margin: 6px 0;
+  right: 20px;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  z-index: 100;
+  background-color: #A2DAB6;
+}
+
+.nav ul {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.nav ul a {
+  position: relative;
+  list-style: none;
+  margin: 0 15px;
+  font-size: 2em;
+  text-decoration: none;
+  color: black;
+}
+.nav {
+  display: none;
+}
+/* 1st page with the search  */
+
+.banner {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    url(/images/first-page.jpg);
+  background-size: cover;
+}
+
+/* search */
+* {
+  box-sizing: border-box;
+}
+
+.example {
+  padding: 10px 0 10px 10px;
+}
+
+/* Style the search field */
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+
+
+
+
 
 a {
   color: #00B7FF;
@@ -18,4 +132,96 @@ code {
 
 .scroll-box{
   height:400px;width:400px;overflow:auto;background-color:yellowgreen;color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;
+}
+
+
+
+
+/* footer */
+
+footer {
+  width: 100%;
+/*   position: relative;
+  bottom: 0; */
+}
+.wrapper {
+  background-color: #A2DAB6;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  font-size: 1.2em;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.icons {
+  text-decoration-style: none;
+}
+.icons ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+.icons ul li {
+  list-style: none;
+  margin: 0 10px;
+}
+.icons ul li .fa {
+  color: #000000;
+  font-size: 25px;
+  line-height: 50px;
+  transition: 0.5s;
+}
+.icons ul li .fa:hover {
+  color: #ffffff;
+}
+.icons ul li a {
+  position: relative;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  text-align: center;
+  transition: 0.5s;
+  transform: translate(0, 0px);
+  box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* footer  */
+.icons ul li a:hover {
+  transform: rotate(0deg) skew(0deg) translate(0, -10px);
+}
+.icons ul li:nth-child(1) a:hover {
+  background-color: #3b5999;
+}
+.icons ul li:nth-child(2) a:hover {
+  background-color: #55acee;
+}
+.icons ul li:nth-child(3) a:hover {
+  background-color: #e4405f;
+}
+.icons ul li:nth-child(4) a:hover {
+  background-color: #cd201f;
+}
+.icons ul li:nth-child(5) a:hover {
+  background-color: #0077b5;
+}
+
+
+
+@media screen and (min-width: 481px) and (max-width: 768) {
+
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024) {
+  
+}
+
+@media screen and  (min-width: 1025px) {
+  
 }

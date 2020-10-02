@@ -1,29 +1,43 @@
 
-<p>Here I will have the start page</p>
-<ul>
-    <li>Nav</li>
-    <li>Search</li>
-    <li>Footer</li>
-    <li>login</li>
-</ul>
+{{#if errorMessage}}
+<p>{{ errorMessage }}</p>
+{{/if}}
 
-<p>
-    <form action="/all" method="GET">
-        <input type="text" name="search" placeholder="Find a code!">
-        <input type="submit" value="search">
-    </form>
+
+
+
+    <header>
+        <form class="example" action="/all" method="GET">
+            <input type="text" name="search" placeholder="Find a code!">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <div class="container">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="nav">
+            <ul>
+                <a href="/signup">Signup</a>
+                <a href="/login">Login</a>
+            </ul>
+            <form id="logout-form" action="/logout" method="POST">
+                <button>Log out</button>
+            </form>
+        </div>
+    </header>
+
+
+<div class="banner">
+    <p>
+<form action="/all" method="GET">
+    <input type="text" name="search" placeholder="Find a code!">
+    <input type="submit" value="search">
+</form>
 </p>
 <br>
 <a href="/all">Go to the all snippets page (remove later)</a>
 <br>
 <a href="/create">go to the create snippet page (remove later)</a>
 <br>
-<a href="/signup">Sign up btn</a>
-<a href="/login">Login flow</a>
-
-
-
-{{#if errorMessage}}
-    <p>{{ errorMessage }}</p>
-{{/if}}
-
+</div>
