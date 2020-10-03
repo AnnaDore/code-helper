@@ -12,7 +12,7 @@ const mongoose = require('mongoose')
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  res.render("index");
+  res.render("index", { userInSession: req.session.currentUser});
 });
 
 function escapeRegex(text) {
@@ -20,18 +20,22 @@ function escapeRegex(text) {
 }
 
 router.get("/all", (req, res, next) => {
+ 
   if (req.query.search) {
+    console.log(req.query.search)
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     Snippet.find({ name: regex })
       .then((data) => {
-        if(data) {
-          res.render("snippets/all", { data });
-          console.log("data true")
-          
+        if(data.length === 0) {
+          console.log('empty')
+          console.log(data)
+          res.render('snippets/empty-search', {data: data,  userInSession: req.session.currentUser} )
         } else {
-          console.log("data false")
-          res.render('snippets/empty-search')
+          console.log('not empty')
+          
+          res.render("snippets/all", { data: data,  userInSession: req.session.currentUser });
         }
+
 
         
         //res.render("snippets/all", { data });
@@ -42,7 +46,13 @@ router.get("/all", (req, res, next) => {
   } else {
     Snippet.find()
       .then((data) => {
-        res.render("snippets/all", { data });
+
+    console.log('true btn')
+          res.render("snippets/all", { data: data,  userInSession: req.session.currentUser }); 
+        
+
+
+        //res.render("snippets/all", { data: data,  userInSession: req.session.currentUser });
       })
       .catch((err) => {
         console.log(err);
@@ -50,19 +60,32 @@ router.get("/all", (req, res, next) => {
   }
 });
 
-
+//detailed link
 router.get('/snippet/:id', (req, res, next) => {
   const oneSnippet = Snippet.findById(req.params.id).populate("connections")
+  
   const otherSnippets = Snippet.find()
   Promise.all([oneSnippet, otherSnippets])
   .then(data => {
-    res.render('snippets/oneSnippet', {oneSnippet: data[0], otherSnippets: data[1]})
-    
+    res.render('snippets/oneSnippet', {oneSnippet: data[0], otherSnippets: data[1], userInSession: req.session.currentUser})
   })
   .catch(err => {
     console.log(err)
   })
-})
+}) 
+
+//not detailed link
+router.get('/general/snippet/:id', (req, res, next) => {
+  const oneSnippet = Snippet.findById(req.params.id).populate("connections")
+  const otherSnippets = Snippet.find()
+  Promise.all([oneSnippet, otherSnippets])
+  .then(data => {
+    res.render('snippets/oneSnippetGeneral', {oneSnippet: data[0], otherSnippets: data[1], userInSession: req.session.currentUser})
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}) 
 
 router.post('/snippet/:id', checkLogin, (req, res, next) => {
   const { connections } = req.body;
@@ -75,57 +98,16 @@ router.post('/snippet/:id', checkLogin, (req, res, next) => {
   })
 })
 
-router.get("/create",  checkLogin, (req, res, next) => {
-  console.log(req.session.currentUser, "userCreateGet")
-  const tag = Snippet.schema.path('tag').enumValues
-  const extension = Snippet.schema.path('extension').enumValues
-  Promise.all([extension, tag])
-  .then(data => {
-    res.render("snippets/create", {extension: data[0], tag: data[1]}); 
-  })
-});
-
-router.post("/create",  async (req, res, next) => {
-  const { name, description, snippet, extension, tag } = req.body;
-  //console.log(req.body);
-  console.log(req.session.currentUser, "user")
-  let imageUrl;
-  if (extension === "HTML") {
-    imageUrl = "/images/html.jpg"
-  } else if (extension === 'CSS') {
-    imageUrl = '/images/css.jpg'
-  } else {
-    imageUrl = '/images/js.jpg'
-  }
-  try {
-    const snippetVar =  await Snippet.create({
-      name: name,
-      description: description,
-      snippet: snippet,
-      extension: extension, 
-      tag: tag, 
-      imageUrl: imageUrl,
-      creator: req.session.currentUser._id
-    })
-
-    console.log(snippetVar, "snippetVar")
-    await User.findByIdAndUpdate({_id: req.session.currentUser._id}, {$set: {snippets: snippetVar._id}})
-     res.redirect(`/snippet/${snippetVar._id}`);  
-  }
-  catch(e) {
-    console.log(e)
-  }
-
-});
 
 
-router.get('/snippet/edit/:id', checkLogin, (req, res, next) => {
+
+ router.get('/snippet/edit/:id', checkLogin, (req, res, next) => {
    const tag = Snippet.schema.path('tag').enumValues
   const extension = Snippet.schema.path('extension').enumValues
   const snippet =  Snippet.findById(req.params.id)
   Promise.all([snippet, extension, tag])
   .then(data => {
-    res.render('snippets/edit', {snippet: data[0], extension: data[1], tag: data[2]})
+    res.render('snippets/edit', {snippet: data[0], extension: data[1], tag: data[2], userInSession: req.session.currentUser})
   })
   .catch(err => {
     console.log(err)
@@ -142,7 +124,7 @@ router.post('/snippet/:id', (req, res, next) => {
   .catch(err => {
     console.log(err)
   })
-})
+}) 
 
 router.get('/delete/:id', checkLogin, (req, res, next) => {
   Snippet.findByIdAndDelete({_id: req.params.id})
@@ -154,6 +136,9 @@ router.get('/delete/:id', checkLogin, (req, res, next) => {
   })
 })
  
+
+module.exports = router;
+
 //search attempt
 /* 
 router.get('/search', (req, res, next) => {
@@ -198,4 +183,3 @@ Snippet.find({
   })
 }) 
  */
-module.exports = router;

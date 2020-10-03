@@ -22,7 +22,7 @@ body {
   right: 20px;
 }
 header {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   display: flex;
@@ -129,9 +129,7 @@ form.example::after {
   align-items: center;
 } */
 
-.first-page {
-  margin-top: 60px;
-}
+
 
 /* text part on the 1st page */
 
@@ -200,10 +198,10 @@ form.example::after {
 }
 
 
-
 .all-page {
-  margin-top: 50px;
+  position: relative;
 }
+
 
 .all-snippets {
   display: flex;
@@ -212,8 +210,8 @@ form.example::after {
   align-content: space-between;
   justify-content: space-around;
 
-  margin-top: 70px;
-  margin-bottom: 70px;
+  /* margin-top: 170px; */
+ /*  margin-bottom: 70px; */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -307,7 +305,7 @@ form.example::after {
 }
 
 .one-snippet-whole {
-  margin-top: 70px;
+  /* margin-top: 70px; */
   margin-bottom: 80px;
   position: absolute;
   top: 50%;
@@ -317,17 +315,17 @@ form.example::after {
 }
 
 .one-snippet-page {
-  margin-top: 70px;
+  /* margin-top: 70px; */
   margin-bottom: 90px;
 }
 
 
 /* !!!!permanent for visibility!!!! */
 
-.permanent {
+/* .permanent {
   margin-top: 70px;
   margin-bottom: 90px;
-}
+} */
 
 img {
   height: 100px;
@@ -357,7 +355,7 @@ code {
 /* footer */
 footer {
   width: 100%;
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
 }
 .wrapper {

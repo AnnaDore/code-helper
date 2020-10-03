@@ -22,7 +22,13 @@ const userSchema = new Schema(
             type: String, 
             requred: [true, "Password is required"]
         }, 
-        snippets: [{type: Schema.Types.ObjectId, ref: 'Snippet' }]
+        snippets: [{type: Schema.Types.ObjectId, ref: 'Snippet' }], 
+        bio: {
+            type: String
+        }, 
+        avatarPath: {
+            type: String
+        }
     }, 
     {
         timestamp: true

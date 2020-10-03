@@ -6,7 +6,7 @@
             <p> {{oneSnippet.description}}</p>
             <p>{{oneSnippet.tag}}</p>
             <p>{{oneSnippet.extension}}</p>
-             {{#if oneSnippet.connections}}
+            {{#if oneSnippet.connections}}
 
             <p>Maybe you also will work with this files:</p>
             {{#each oneSnippet.connections}}
@@ -18,7 +18,7 @@
             <textarea disabled class="scroll-box">{{oneSnippet.snippet}}</textarea>
         </div>
     </div>
-    {{#if userInSession}}
+   {{!--  {{#if userInSession}}
     <div class="wrapper">
         <div class="add-connection">
         <p>Do you want to conenct this file?</p>
@@ -37,9 +37,17 @@
         <a href="/delete/{{oneSnippet._id}}">Remove</a>
     </div>
     </div>
-    {{/if}}
-    
+    {{/if}} --}}
+
     {{#if errorMessage}}
     <p>{{ errorMessage }}</p>
     {{/if}}
 </div>
+{{#if userInSession}}
+{{else}}
+    <div>
+        <p>Want to add your snippet? Sign up!</p>
+        <a href="/signup">Login</a>
+    </div>
+
+    {{/if}}

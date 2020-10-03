@@ -19,7 +19,7 @@
     </form>
     <div class="nav">
       {{#if userInSession}}
-      <a href="/auth/user/{{userInSession._id}}">{{userInSession.username}}</a>
+      <a href="/{{userInSession._id}}">{{userInSession.username}}</a>
       <form id="logout-form" action="/logout" method="POST">
         <button>Log out</button>
       </form>
@@ -33,6 +33,9 @@
     <div class="wrapper">
       <div>
         <p>Second Dodo's project</p>
+      </div>
+      <div>
+         <a href="/">Home</a>
       </div>
       <div class="icons">
         <ul>

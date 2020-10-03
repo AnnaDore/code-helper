@@ -1,0 +1,147 @@
+const express = require("express");
+const { render } = require("../app");
+const router = express.Router();
+const { get } = require("mongoose");
+const Snippet = require("../models/Snippet");
+const checkLogin = require("../middleware/checkLogin");
+const session = require("../configs/session.config");
+const User = require("../models/User");
+const mongoose = require("mongoose");
+const uploadCloud = require("../configs/cloudinary");
+
+//router.get("/create",  checkLogin, (req, res, next) => {
+router.get(`/:id/create`, checkLogin, (req, res, next) => {
+  console.log(req.session.currentUser, "userCreateGet");
+  const tag = Snippet.schema.path("tag").enumValues;
+  const extension = Snippet.schema.path("extension").enumValues;
+  Promise.all([extension, tag]).then((data) => {
+    console.log(data);
+    res.render("snippets/create", {
+      extension: data[0],
+      tag: data[1],
+      userInSession: req.session.currentUser
+    });
+  });
+});
+
+router.post("/:id/create", async (req, res, next) => {
+  const { name, description, snippet, extension, tag } = req.body;
+  //console.log(req.body);
+  console.log(req.session.currentUser, "user");
+  let imageUrl;
+  if (extension === "HTML") {
+    imageUrl = "/images/html.jpg";
+  } else if (extension === "CSS") {
+    imageUrl = "/images/css.jpg";
+  } else {
+    imageUrl = "/images/js.jpg";
+  }
+  try {
+    const snippetVar = await Snippet.create({
+      name: name,
+      description: description,
+      snippet: snippet,
+      extension: extension,
+      tag: tag,
+      imageUrl: imageUrl,
+      creator: req.session.currentUser._id,
+    });
+
+    console.log(snippetVar, "snippetVar");
+    await User.findByIdAndUpdate({ _id: req.session.currentUser._id }, 
+      { $push: { snippets: snippetVar._id } }
+    );
+    res.redirect(`/snippet/${snippetVar._id}`);
+/*     res.redirect(
+      `/${req.session.currentUser.username}/snippet/${snippetVar.name}`
+    ); */
+  } catch (e) {
+    console.log(e);
+  }
+});
+/* 
+router.get("/:username/snippet/:name", checkLogin, (req, res, next) => {
+  const oneSnippet = Snippet.findById(req.params.id).populate("connections");
+  const otherSnippets = Snippet.find();
+  Promise.all([oneSnippet, otherSnippets])
+    .then((data) => {
+      res.render("snippets/oneSnippet", {
+        oneSnippet: data[0],
+        otherSnippets: data[1],
+        userInSession: req.session.currentUser
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+ */
+/* router.post('/:id/snippet/:id', checkLogin, (req, res, next) => {
+    const { connections } = req.body;
+    Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: {connections}}, {new: true})
+    .then(data => {
+      res.redirect('/snippet/' + req.params.id)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }) */
+
+  router.get('/snippet/edit/:id', checkLogin, (req, res, next) => {
+    const tag = Snippet.schema.path('tag').enumValues
+   const extension = Snippet.schema.path('extension').enumValues
+   const snippet =  Snippet.findById(req.params.id)
+   Promise.all([snippet, extension, tag])
+   .then(data => {
+     res.render('snippets/edit', {snippet: data[0], extension: data[1], tag: data[2]})
+   })
+   .catch(err => {
+     console.log(err)
+   })
+ })
+ 
+ router.post('/snippet/:id', (req, res, next) => {
+   const { name, description, snippet } = req.body
+   Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: { name, description, snippet}}, {new : true})
+   .then(() => {
+     res.redirect('/snippet/' + req.params.id)
+     //res.render('snippets/oneSnippet', data)
+   })
+   .catch(err => {
+     console.log(err)
+   })
+ })
+
+
+router.post('/bio-update/:id', (req, res, next) => {
+    const { bio } = req.body
+    req.session.currentUser.bio = bio
+    User.findByIdAndUpdate({_id: req.params.id}, {$set: {bio: bio}}, {new: true})
+    .then(data => {
+        res.redirect(`/${req.params.id}`)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+router.post('/add-avatar/:id', uploadCloud.single('avatar'), (req, res, next) => {
+
+    const { avatarPath } = req.body
+    req.session.currentUser.avatarPath = avatarPath
+    console.log(req.file)
+    User.findByIdAndUpdate({_id: req.params.id}, {$set: {avatarPath: req.file.path}}, {new: true})
+
+    .then(() => {
+        console.log(req.file)
+        res.redirect(`/${req.params.id}`)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+
+
+
+module.exports = router;
