@@ -128,9 +128,9 @@ router.post('/bio-update/:id', (req, res, next) => {
 router.post('/add-avatar/:id', uploadCloud.single('avatar'), (req, res, next) => {
 
     const { avatarPath } = req.body
-    req.session.currentUser.avatarPath = avatarPath
+    req.session.currentUser.avatarPath = req.file.path
     console.log(req.file)
-    User.findByIdAndUpdate({_id: req.params.id}, {$set: {avatarPath: req.file.path}}, {new: true})
+    User.findByIdAndUpdate({_id: req.params.id}, {$set: {avatarPath: req.session.currentUser.avatarPath}}, {new: true})
 
     .then(() => {
         console.log(req.file)
