@@ -10,23 +10,21 @@ const mongoose = require("mongoose");
 const uploadCloud = require("../configs/cloudinary");
 
 //router.get("/create",  checkLogin, (req, res, next) => {
-router.get(`/:id/create`, checkLogin, (req, res, next) => {
+router.get(`/:id/create`, checkLogin, checkLogin, (req, res, next) => {
   console.log(req.session.currentUser, "userCreateGet");
   const tag = Snippet.schema.path("tag").enumValues;
   const extension = Snippet.schema.path("extension").enumValues;
   Promise.all([extension, tag]).then((data) => {
-    console.log(data);
     res.render("snippets/create", {
       extension: data[0],
       tag: data[1],
-      userInSession: req.session.currentUser
+      userInSession: req.session.currentUser,
     });
   });
 });
 
 router.post("/:id/create", async (req, res, next) => {
   const { name, description, snippet, extension, tag } = req.body;
-  //console.log(req.body);
   console.log(req.session.currentUser, "user");
   let imageUrl;
   if (extension === "HTML") {
@@ -46,102 +44,83 @@ router.post("/:id/create", async (req, res, next) => {
       imageUrl: imageUrl,
       creator: req.session.currentUser._id,
     });
-
     console.log(snippetVar, "snippetVar");
-    await User.findByIdAndUpdate({ _id: req.session.currentUser._id }, 
+    await User.findByIdAndUpdate(
+      { _id: req.session.currentUser._id },
       { $push: { snippets: snippetVar._id } }
     );
     res.redirect(`/snippet/${snippetVar._id}`);
-/*     res.redirect(
-      `/${req.session.currentUser.username}/snippet/${snippetVar.name}`
-    ); */
-  } catch (e) {
-    console.log(e);
+  } catch (errorMessage) {
+    console.log(errorMessage);
   }
 });
-/* 
-router.get("/:username/snippet/:name", checkLogin, (req, res, next) => {
-  const oneSnippet = Snippet.findById(req.params.id).populate("connections");
-  const otherSnippets = Snippet.find();
-  Promise.all([oneSnippet, otherSnippets])
+
+router.get("/snippet/edit/:id", checkLogin, (req, res, next) => {
+  const tag = Snippet.schema.path("tag").enumValues;
+  const extension = Snippet.schema.path("extension").enumValues;
+  const snippet = Snippet.findById(req.params.id);
+  Promise.all([snippet, extension, tag])
     .then((data) => {
-      res.render("snippets/oneSnippet", {
-        oneSnippet: data[0],
-        otherSnippets: data[1],
-        userInSession: req.session.currentUser
+      res.render("snippets/edit", {
+        snippet: data[0],
+        extension: data[1],
+        tag: data[2],
       });
     })
     .catch((err) => {
       console.log(err);
     });
 });
- */
-/* router.post('/:id/snippet/:id', checkLogin, (req, res, next) => {
-    const { connections } = req.body;
-    Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: {connections}}, {new: true})
-    .then(data => {
-      res.redirect('/snippet/' + req.params.id)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }) */
 
-  router.get('/snippet/edit/:id', checkLogin, (req, res, next) => {
-    const tag = Snippet.schema.path('tag').enumValues
-   const extension = Snippet.schema.path('extension').enumValues
-   const snippet =  Snippet.findById(req.params.id)
-   Promise.all([snippet, extension, tag])
-   .then(data => {
-     res.render('snippets/edit', {snippet: data[0], extension: data[1], tag: data[2]})
-   })
-   .catch(err => {
-     console.log(err)
-   })
- })
- 
- router.post('/snippet/:id', (req, res, next) => {
-   const { name, description, snippet } = req.body
-   Snippet.findByIdAndUpdate({_id: req.params.id}, {$set: { name, description, snippet}}, {new : true})
-   .then(() => {
-     res.redirect('/snippet/' + req.params.id)
-     //res.render('snippets/oneSnippet', data)
-   })
-   .catch(err => {
-     console.log(err)
-   })
- })
-
-
-router.post('/bio-update/:id', (req, res, next) => {
-    const { bio } = req.body
-    req.session.currentUser.bio = bio
-    User.findByIdAndUpdate({_id: req.params.id}, {$set: {bio: bio}}, {new: true})
-    .then(data => {
-        res.redirect(`/${req.params.id}`)
-    })
-    .catch(err => {
-        console.log(err)
-    })
-})
-
-router.post('/add-avatar/:id', uploadCloud.single('avatar'), (req, res, next) => {
-
-    const { avatarPath } = req.body
-    req.session.currentUser.avatarPath = req.file.path
-    console.log(req.file)
-    User.findByIdAndUpdate({_id: req.params.id}, {$set: {avatarPath: req.session.currentUser.avatarPath}}, {new: true})
-
+router.post("/snippet/:id", (req, res, next) => {
+  const { name, description, snippet } = req.body;
+  Snippet.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $set: { name, description, snippet } },
+    { new: true }
+  )
     .then(() => {
-        console.log(req.file)
-        res.redirect(`/${req.params.id}`)
+      res.redirect("/snippet/" + req.params.id);
     })
-    .catch(err => {
-        console.log(err)
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.post("/bio-update/:id", (req, res, next) => {
+  const { bio } = req.body;
+  req.session.currentUser.bio = bio;
+  User.findByIdAndUpdate(
+    { _id: req.params.id },
+    { $set: { bio: bio } },
+    { new: true }
+  )
+    .then(() => {
+      res.redirect(`/${req.params.id}`);
     })
-})
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
-
-
+router.post(
+  "/add-avatar/:id",
+  uploadCloud.single("avatar"),
+  (req, res, next) => {
+    const { avatarPath } = req.body;
+    req.session.currentUser.avatarPath = req.file.path;
+    User.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: { avatarPath: req.session.currentUser.avatarPath } },
+      { new: true }
+    )
+      .then(() => {
+        res.redirect(`/${req.params.id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
 
 module.exports = router;

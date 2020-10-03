@@ -1,51 +1,36 @@
-<div class="permanent">
-    {{#if userInSession }}
-<p>Welcome {{userInSession.username}}!</p>
-<div>
-    <p>Name is: {{userInSession.username}}</p>
-    <p>Bio is: {{userInSession.bio}}</p>
+<div class="whole-profile-page">
+    <div class="banner profile-banner"></div>
+    <div class="profile-info">
+        <div class="avatar">
+            {{#if userInSession.avatarPath}}
+            <img src="{{userInSession.avatarPath}}" alt="avatar">
+            {{else}}
+            <a href="/{{userInSession._id}}/edit"><img src="/images/sun2.png" alt=""></a>
+
+            {{/if}}
+        </div>
+        <div class="profile-text">
+            <h1>{{userInSession.username}}</h1>
+            {{#if userInSession.bio}}
+            <h2>{{userInSession.bio}}</h2>
+            {{/if}}
+            <div class="profile-snippets">
+               
+                {{#if snippets}}
+                <h5>List of the snippets which you created:</h5>
+                {{#each snippets}}
+                <a href="/snippet/{{_id}}">{{name}}</a>
+                {{/each}}
+                {{else}}
+                 <h5>Here you will the created snippets</h5>
+                {{/if}}
+                 <a href="/{{userInSession.username}}/create">Create a snippet</a>
+            </div>
+            <div class="profile-links">
+               
+                <a href="/{{userInSession._id}}/edit">Edit profile</a>
+            </div>
+
+        </div>
+    </div>
 </div>
-<button>
-    <a href="/{{userInSession._id}}">Refresh the page</a>
-</button>
-<br>
-<a href="/{{userInSession.username}}/create">Create a snippet as a logged in user</a>
-<p>List of the snippets</p>
-{{#each snippets}}
-    <a href="/snippet/{{_id}}">{{name}}</a>
-    <br>
-{{/each}}
-
-<p>below is an avatar</p>
-<img src="{{userInSession.avatarPath}}" alt="avatar">
-{{#if userInSession.avatarPath}}
-    
-{{/if}}
-
-
-<form action="/bio-update/{{userInSession._id}}" method="post">
-    <label for="bio">Add bio</label>
-<input type="text" name="bio" placeholder="add your tagline">
-<button type="submit">Add bio</button>
-</form>
-
-<form action="/add-avatar/{{userInSession._id}}" method='post' enctype="multipart/form-data">
-<label for="avatar">Add you avatar</label>
-<input type="file" name='avatar'>
-<button type='submit'>Submit</button>
-</form>
-
-{{else}}
-<p>youna are not logged in</p>
-
-{{/if}}
-
-
-
-<h1>To do here</h1>
-<ul>
-    <li>Photo</li>
-    <li>bio</li>
-</ul>   
-</div>
-

@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const router = new Router();
 const mongoose = require("mongoose");
-
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const saltRounds = 10;
@@ -29,12 +28,10 @@ router.post("/signup", (req, res, next) => {
   }
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
   if (!regex.test(password)) {
-    res
-      .status(500)
-      .render("auth/signup", {
-        errorMessage:
-          "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
-      });
+    res.status(500).render("auth/signup", {
+      errorMessage:
+        "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
+    });
     return;
   }
 
@@ -51,7 +48,6 @@ router.post("/signup", (req, res, next) => {
     .then((user) => {
       req.session.currentUser = user;
       console.log(`New user is: ${user}`);
-      // res.redirect(`/auth/user/${user._id}`);
       res.redirect(`/${user.username}`);
     })
     .catch((error) => {
@@ -90,8 +86,6 @@ router.post("/login", (req, res, next) => {
         return;
       } else if (bcrypt.compareSync(password, user.passwordHash)) {
         req.session.currentUser = user;
-        // res.redirect(`/auth/user/${user._id}`);
-        //res.redirect(`/auth/user/${user.username}`);
         res.redirect(`/${user._id}`);
       } else {
         res.render("auth/login", { errorMessage: "Incorrect password" });
@@ -105,18 +99,23 @@ router.post("/login", (req, res, next) => {
 //router.get(`/auth/user/:id`, (req, res) => {
 router.get(`/:id`, (req, res, next) => {
   const listofSnippets = User.findById(req.params.id).populate("snippets");
-  console.log(req.params);
- 
-  User.findById(req.params.id).populate("snippets")
+  User.findById(req.params.id)
+    .populate("snippets")
     .then((data) => {
-      console.log(data.snippets);
-     
       res.render("users/userProfile", {
         userInSession: req.session.currentUser,
-        snippets: data.snippets
+        snippets: data.snippets,
       });
     });
-  //res.render("users/userProfile", { userInSession: req.session.currentUser });
+});
+
+//edit profile
+router.get("/:id/edit", (req, res, next) => {
+  User.findById(req.params.id).then((data) => {
+    res.render("users/editProfile", {
+      userInSession: req.session.currentUser,
+    });
+  });
 });
 
 router.post("/logout", (req, res, next) => {

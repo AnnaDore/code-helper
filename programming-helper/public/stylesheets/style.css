@@ -1,14 +1,20 @@
 /* general */
-@import url('https://fonts.googleapis.com/css2?family=Varela&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Varela&display=swap");
 
 body {
-  
   font-size: 16px;
-  font-family: 'Varela', "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Varela", "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0;
-  padding: 0
+  padding: 0;
+}
+
+.banner {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+
+  background-size: cover;
 }
 
 /* header */
@@ -30,7 +36,7 @@ header {
   align-items: center;
   width: 100%;
   z-index: 100;
-  background-color: #A2DAB6;
+  background-color: #a2dab6;
 }
 
 .nav ul {
@@ -80,7 +86,7 @@ header {
 } */
 
 /* Style the search field */
-form.example input[type=text] {
+form.example input[type="text"] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
@@ -94,7 +100,7 @@ form.example button {
   float: left;
   width: 20%;
   padding: 10px;
-  background: #44E37D;
+  background: #44e37d;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
@@ -103,7 +109,7 @@ form.example button {
 }
 
 form.example button:hover {
-  background: #0EA945;
+  background: #0ea945;
 }
 
 /* Clear floats */
@@ -129,8 +135,6 @@ form.example::after {
   align-items: center;
 } */
 
-
-
 /* text part on the 1st page */
 
 .welcome {
@@ -152,15 +156,13 @@ form.example::after {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 .main-search-input {
   padding: 10px 30px;
- margin-bottom: 20px;
- height: 50px;
- width: 300px;
-
+  margin-bottom: 20px;
+  height: 50px;
+  width: 300px;
 }
 
 .main-search-btn {
@@ -169,15 +171,15 @@ form.example::after {
   font-weight: bold;
   font-size: 1.2em;
   width: 200px;
-  background-color: #CAE7DC;
+  background-color: #cae7dc;
 }
 
 .all-search-btn {
- font-size: 1.1em;
- font-weight: bold;
- width: 300px;
- padding: 10px;
- background-color: #A1C0B5;
+  font-size: 1.1em;
+  font-weight: bold;
+  width: 300px;
+  padding: 10px;
+  background-color: #a1c0b5;
 }
 
 /* all snippets page */
@@ -192,16 +194,14 @@ form.example::after {
       rgba(255, 255, 255, 0.8)
     ),
     url(/images/alotofcode.jpeg);
-    
+
   background-size: cover;
   background-repeat: repeat-y;
 }
 
-
 .all-page {
   position: relative;
 }
-
 
 .all-snippets {
   display: flex;
@@ -211,7 +211,7 @@ form.example::after {
   justify-content: space-around;
 
   /* margin-top: 170px; */
- /*  margin-bottom: 70px; */
+  /*  margin-bottom: 70px; */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -225,10 +225,10 @@ form.example::after {
   /* background-color: red; */
   justify-content: space-between;
   align-items: center;
-  width: 200px; 
+  width: 200px;
   margin-left: 10px;
   margin-right: 10px;
-  background-color: #D3F1E6;
+  background-color: #d3f1e6;
   margin-bottom: 10px;
   margin-right: 10px;
 }
@@ -257,7 +257,10 @@ form.example::after {
     ),
     url(/images/bugphoto-small.jpg);
   background-size: cover;
+}
 
+.funny-gif {
+  display: none;
 }
 
 .signup-inputs {
@@ -272,7 +275,6 @@ form.example::after {
 
 .signup-form div input {
   padding: 10px;
- 
 }
 
 .signup-finish {
@@ -288,7 +290,6 @@ form.example::after {
 .label {
   text-align: center;
 }
-
 
 /* one snippet page */
 .banner-one-snippet {
@@ -319,7 +320,6 @@ form.example::after {
   margin-bottom: 90px;
 }
 
-
 /* !!!!permanent for visibility!!!! */
 
 /* .permanent {
@@ -337,20 +337,39 @@ code {
   height: 200px;
 }
 
-.scroll-box{
-  height:300px;
-  width:300px;
-  overflow:auto;
-  background-color:yellowgreen;
-  color:white;
-  scrollbar-base-color:gold;
-  font-family:sans-serif;
-  padding:10px;
+.scroll-box {
+  height: 300px;
+  width: 300px;
+  overflow: auto;
+  background-color: yellowgreen;
+  color: white;
+  scrollbar-base-color: gold;
+  font-family: sans-serif;
+  padding: 10px;
 }
 
+/* profile */
+.profile-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
+.profile-banner {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url(/images/profile.jpg);
+}
 
-
+.edit-profile-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 /* footer */
 footer {
@@ -359,7 +378,7 @@ footer {
   bottom: 0;
 }
 .wrapper {
-  background-color: #A2DAB6;
+  background-color: #a2dab6;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -426,53 +445,60 @@ footer {
   background-color: #0077b5;
 }
 
-@media screen and (max-width:480px) {
-
+@media screen and (max-width: 480px) {
 }
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
+  body {
+    background-color: red;
+  }
 
- body {
-  background-color: red;
- }
-
- .signup-form div {
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-   margin-bottom: 10px;
- }
-
+  .signup-form div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .funny-gif {
+    display: block;
+    margin: 30px auto;
+  }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-
   body {
     background-color: blue;
-   }
-   .signup-form div {
+  }
+  .signup-form div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 10px;
   }
   .signup-banner {
-    background-image: url('/images/bugphoto.jpg');
-    }
+    background-image: url("/images/bugphoto.jpg");
+  }
+  .funny-gif {
+    display: block;
+    margin: 30px auto;
+  }
 }
 
-@media  (min-width: 1025px) {
-
+@media (min-width: 1025px) {
   body {
     background-color: green;
-   }
-   .signup-form div {
+  }
+  .signup-form div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 10px;
   }
   .signup-banner {
-    background-image: url('/images/bugphoto.jpg');
-    }
+    background-image: url("/images/bugphoto.jpg");
+  }
+  .funny-gif {
+    display: block;
+    margin: 30px auto;
+  }
 }

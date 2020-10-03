@@ -56,17 +56,6 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-/* //handlebars
-hbs.registerHelper('getSnippetName', function(otherSnippets){
-  let array = []
-  for (let i = 0; i <= otherSnippets.length; i++) {
-    
-    return arr[i]
-  }
-}) */
-
-      
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
