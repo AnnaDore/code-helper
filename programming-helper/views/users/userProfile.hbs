@@ -3,7 +3,7 @@
     <div class="profile-info">
         <div class="avatar">
             {{#if userInSession.avatarPath}}
-            <img src="{{userInSession.avatarPath}}" alt="avatar">
+            <img class="avatar" src="{{userInSession.avatarPath}}" alt="avatar">
             {{else}}
             <a href="/{{userInSession._id}}/edit"><img src="/images/sun2.png" alt=""></a>
 

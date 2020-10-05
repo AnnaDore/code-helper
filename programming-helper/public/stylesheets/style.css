@@ -6,6 +6,7 @@ body {
   font-family: "Varela", "Lucida Grande", Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #D8F79D;
 }
 
 .banner {
@@ -15,6 +16,10 @@ body {
   height: 100vh;
 
   background-size: cover;
+}
+
+.error {
+  text-align: center;
 }
 
 /* header */
@@ -320,15 +325,53 @@ form.example::after {
   margin-bottom: 90px;
 }
 
-/* !!!!permanent for visibility!!!! */
+.error {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.8)
+    ),
+    url(/images/find-small.png);
+}
 
-/* .permanent {
-  margin-top: 70px;
-  margin-bottom: 90px;
-} */
+.error-not-found {
+  margin-bottom: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gif {
+  width: 300px;
+}
+
+/* create snippet page */
+
+.create {
+  width: 200px;
+  padding: 10px;
+  
+}
+
+.create-form, .create-name, .create-description, .create-extension, .create-tags, .create-snippet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  color: #051D14;
+ 
+}
+
+.avatar {
+  height: 100px;
+}
 
 img {
-  height: 100px;
+  /* height: 100px; */
   padding-left: 10px;
 }
 
@@ -337,15 +380,42 @@ code {
   height: 200px;
 }
 
+
+
+.create-form {
+  margin-top: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
 .scroll-box {
   height: 300px;
-  width: 300px;
+  width: 400px;
   overflow: auto;
-  background-color: yellowgreen;
-  color: white;
+  background-color: #EBF5D8;
+  color: black;
   scrollbar-base-color: gold;
   font-family: sans-serif;
   padding: 10px;
+}
+
+.snippet-textarea {
+  color: black;
+  
+}
+
+.yes {
+  padding: 10px;
+  width: 200px;
+  background-color: #C5EB7D;
+  font-size: 1.2em;
 }
 
 /* profile */
@@ -449,9 +519,7 @@ footer {
 }
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
-  body {
-    background-color: red;
-  }
+
 
   .signup-form div {
     display: flex;
@@ -466,9 +534,7 @@ footer {
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-  body {
-    background-color: blue;
-  }
+
   .signup-form div {
     display: flex;
     flex-direction: row;
@@ -482,12 +548,24 @@ footer {
     display: block;
     margin: 30px auto;
   }
+  .create-form {
+    font-size: 1.4em;
+  }
+  .create-form div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .create-form div label {
+    margin-right: 10px;
+  }
+
 }
 
 @media (min-width: 1025px) {
-  body {
-    background-color: green;
-  }
+
   .signup-form div {
     display: flex;
     flex-direction: row;
@@ -501,4 +579,8 @@ footer {
     display: block;
     margin: 30px auto;
   }
+  .snippet-create-wrapper {
+    order: 0;
+  }
+
 }

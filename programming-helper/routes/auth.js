@@ -48,7 +48,7 @@ router.post("/signup", (req, res, next) => {
     .then((user) => {
       req.session.currentUser = user;
       console.log(`New user is: ${user}`);
-      res.redirect(`/${user.username}`);
+      res.redirect(`/user/${user._id}`);
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -86,7 +86,7 @@ router.post("/login", (req, res, next) => {
         return;
       } else if (bcrypt.compareSync(password, user.passwordHash)) {
         req.session.currentUser = user;
-        res.redirect(`/${user._id}`);
+        res.redirect(`/user/${user._id}`);
       } else {
         res.render("auth/login", { errorMessage: "Incorrect password" });
       }

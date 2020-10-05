@@ -1,41 +1,52 @@
-<div class='permanent'>
-    <form action="create" method="post">
-        <label for="name">Snippet name</label>
-        <input type="text" name='name' placeholder="at least 3 chars">
-        <br>
-        <label for="description">Snippet description</label>
-        <input type="text" name="description">
-        <br>
-        <label for="snippet">Snippet</label>
-        <textarea name="snippet" id="" class="scroll-box"></textarea>
-
-        <br>
-
-        <label for="extension">Extension</label>
-        <select name="extension" id="">
-
-            <option selected="true" disabled>Choose the extension</option>
-            {{#each extension as |item|}}
-            <option value="{{item}}">{{item}}</option>
-            {{/each}}
-
-        </select>
-        <label for="tags">Tags</label>
-        <select name="tag" id="">
-            <option selected="true" disabled>Choose a tag</option>
-            {{#each tag  as |item|}}
-            <option value="{{item}}">{{item}}</option>
-            {{/each}}
-
-
-        </select>
-        {{!--  {{log this}} --}}
-        <button type="submit">Yes</button>
-    </form>
-    {{#if errorMessage}}
-<p>{{ errorMessage }}</p>
+{{#if errorMessage}}
+<p class="error">{{ errorMessage }}</p>
 {{/if}}
-    <a href="/">Back</a>
+
+<div class="create-snippet-whole">
+    <div class="banner create-snippet"></div>
+
+    <form class="create-form" action="create" method="post">
+        <div class="create-snippet-info">
+                    <div class="create-name">
+            <label for="name">Snippet name</label>
+            <input class='create' type="text" name='name' placeholder="at least 3 chars">
+        </div>
+        <div class="create-description">
+            <label for="description">Snippet description</label>
+            <input class='create' type="text" name="description">
+        </div>
+        <div class="create-extension">
+            <label for="extension">Extension</label>
+            <select class='create' name="extension" id="">
+
+                <option selected="true" disabled>Choose the extension</option>
+                {{#each extension as |item|}}
+                <option value="{{item}}">{{item}}</option>
+                {{/each}}
+
+            </select>
+        </div>
+        <div class="create-tags">
+            <label for="tags">Tags</label>
+            <select class='create' name="tag" id="">
+                <option selected="true" disabled>Choose a tag</option>
+                {{#each tag  as |item|}}
+                <option value="{{item}}">{{item}}</option>
+                {{/each}}
+            </select>
+        </div>
+        </div>
+
+
+        <div class="snippet-create-wrapper">
+            <div class="create-snippet">
+                <label for="snippet">Snippet</label>
+                <textarea name="snippet-textarea" id="" class="scroll-box"></textarea>
+            </div>
+        </div>
+        <button class="yes" type="submit">Yes</button>
+    </form>
+
 
 
 </div>

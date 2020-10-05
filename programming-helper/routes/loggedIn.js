@@ -36,7 +36,7 @@ router.post("/:id/create", async (req, res, next) => {
     imageUrl = "/images/js.jpg";
   }
   try {
-     const snippetName = await Snippet.findOne({name})
+         const snippetName = await Snippet.findOne({name})
     if (snippetName) {
       res.render('snippets/create', {errorMessage: "The name exists"})
       return
@@ -47,7 +47,8 @@ router.post("/:id/create", async (req, res, next) => {
       return
     }
     if (!name.length || !snippet.length) {
-      res.render('snippets/create', {errorMessage: "Name or snippet cant be empty"})
+      res.render('snippets/create',  {errorMessage: "Name or snippet cant be empty"})
+     
       return
     }
     
