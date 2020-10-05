@@ -10,11 +10,12 @@ const mongoose = require("mongoose");
 const uploadCloud = require("../configs/cloudinary");
 
 //router.get("/create",  checkLogin, (req, res, next) => {
-router.get(`/:id/create`, checkLogin, checkLogin, (req, res, next) => {
+router.get(`/:id/create`,   (req, res, next) => {
   console.log(req.session.currentUser, "userCreateGet");
   const tag = Snippet.schema.path("tag").enumValues;
   const extension = Snippet.schema.path("extension").enumValues;
-  Promise.all([extension, tag]).then((data) => {
+  Promise.all([extension, tag])
+  .then((data) => {
     res.render("snippets/create", {
       extension: data[0],
       tag: data[1],
@@ -35,6 +36,21 @@ router.post("/:id/create", async (req, res, next) => {
     imageUrl = "/images/js.jpg";
   }
   try {
+     const snippetName = await Snippet.findOne({name})
+    if (snippetName) {
+      res.render('snippets/create', {errorMessage: "The name exists"})
+      return
+    }
+    const snippetCode = await Snippet.findOne({snippet})
+    if (snippetCode) {
+      res.render('snippets/create', {errorMessage: "The snippet exists"})
+      return
+    }
+    if (!name.length || !snippet.length) {
+      res.render('snippets/create', {errorMessage: "Name or snippet cant be empty"})
+      return
+    }
+    
     const snippetVar = await Snippet.create({
       name: name,
       description: description,
@@ -46,6 +62,7 @@ router.post("/:id/create", async (req, res, next) => {
     });
     console.log(snippetVar, "snippetVar");
     await User.findByIdAndUpdate(
+
       { _id: req.session.currentUser._id },
       { $push: { snippets: snippetVar._id } }
     );

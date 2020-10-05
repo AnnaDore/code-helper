@@ -19,7 +19,7 @@
     </form>
     <div class="nav">
       {{#if userInSession}}
-      <a href="/{{userInSession._id}}">{{userInSession.username}}</a>
+      <a href="/user/{{userInSession._id}}">{{userInSession.username}}</a>
       <form id="logout-form" action="/logout" method="POST">
         <button>Log out</button>
       </form>
@@ -35,10 +35,13 @@
         <p>Second Dodo's project</p>
       </div>
       <div>
-         <a href="/">Home</a>
+        <a href="/">Home</a>
       </div>
       <div class="icons">
         <ul>
+          <li>
+            <a href="/feedback"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+          </li>
           <li>
             <a href="https://www.linkedin.com/in/anna-dorenskaia-155b7b129"><i class="fa fa-linkedin"></i></a>
           </li>

@@ -1,3 +1,5 @@
+const { $where } = require("../../models/User");
+
 document.addEventListener('DOMContentLoaded', () => {
 
  // console.log('IronGenerator JS imported successfully!');
@@ -5,46 +7,27 @@ document.addEventListener('DOMContentLoaded', () => {
 }, false);
 
 
-/* //search code
-let showResults = debounce(function(arg) {
-let value = arg.trim()
-if (value == "" || value.length <= 0) {
-    $("#search-results").fadeOut()
-    return
-}
-else {
-    $("#search-results").fadeIn()
-}
-let jqxhr = $.get('/xhr/search?q=' + value, function(data) {
-    $("#search-results").html("")
-})
-.done(function(data) {
-    if (data.length === 0) {
-        $("#search-results").append('<p class="lead text-center mt-2>No results</p>')
-    } else {
-        data.forEach(x => {
-            $("#search-results").append('<a href="#"><pp class="m-2 lead">' + x.name + '</p> </a>') // here
-        })
-    }
-})
-.fail(function(err) {
-    console.log(err)
-})
-}, 200);
+/* $(document).ready(function() {
+    $('.submit').clock(function (event) {
+        let email = $('.email').val()
+        let subject = $('.subject').val()
+        let message = $('.message').val()
+        let statusElm = $('.status')
+        statusElm.empty()
+        
 
-function debounce(func, wait, immediate) {
-    let timeout
-    return function() {
-        let content = this,
-        args = arguments
-        let later = function() {
-            timeout = null;
-            if (!immediate) func.apply(content, args)
+        if(email.length > 5 && email.includes("@") && email.includes('.')) {
+            statusElm.append('<div>Email is valid</div>')
+        } else {
+            statusElm.append('<div>Email is not valid</div>')
         }
-        let callNow = immediate && !timeout
-        clearTimeout(timeout)
-        timeout = setTimeout(later, wait)
-        if (callNow) func.apply(context, args)
-    }
 
-} */
+       if(message.length < 3) {
+           statusElm.append('<div>Message has to be more than 3 chars</div>')
+       }
+
+    }
+})
+ */
+
+

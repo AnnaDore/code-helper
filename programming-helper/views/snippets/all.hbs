@@ -20,3 +20,27 @@
 <p>{{ errorMessage }}</p>
 {{/if}}
 </div>
+
+{{!--         {{#if enablePaging}}
+        <div class="tasksPaging">
+            Pages:
+            {{#each pages}}
+            <a href="/tasks?limit={{limit}}&skip={{skip}}">
+                {{num}}
+            </a>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        <ul id="taskList">
+            {{#each tasks}}
+                <li>
+                    <input type="checkbox" {{#if completed }} checked="checked" {{/if}} onclick="toggleTask('{{ _id }}', {{ completed }})">
+                    <input type="text" value="{{ description }}" onchange="updateTask('{{ _id }}', this)">
+                    <button onclick="deleteTask('{{ _id }}')" class="deleteBtn">
+                        x
+                    </button>
+                </li>
+            {{/each}}
+        </ul>
+ --}}

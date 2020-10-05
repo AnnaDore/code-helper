@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 
 
 
+
 mongoose
   .connect('mongodb://localhost/programming-helper', {useNewUrlParser: true})
   .then(x => {
@@ -48,6 +49,13 @@ app.use(cookieParser());
 
 // Register the location for handlebars partials here:
 hbs.registerPartials(path.join(__dirname, 'views/partials'))
+//try pagination
+var paginateHelper = require('express-handlebars-paginate');
+//Register Helper
+hbs.registerHelper('paginateHelper', paginateHelper);
+hbs.handlebars.registerHelper('paginateHelper', paginateHelper.createPagination);
+
+
 
 // Express View engine setup
 app.use(require('node-sass-middleware')({

@@ -97,7 +97,7 @@ router.post("/login", (req, res, next) => {
 });
 
 //router.get(`/auth/user/:id`, (req, res) => {
-router.get(`/:id`, (req, res, next) => {
+router.get(`/user/:id`, (req, res, next) => {
   const listofSnippets = User.findById(req.params.id).populate("snippets");
   User.findById(req.params.id)
     .populate("snippets")

@@ -6,18 +6,26 @@ let app = require('../app');
 
 // catch 404 and render a not-found.hbs template
 app.use((req, res, next) => {
+  console.log('hi')
   res.status(404);
-  res.render('not-found');
+  //userInSession: req.session.currentUser
+  console.log(req.session.currentUser)
+ 
+  res.render('not-found', userInSession);
 });
 
 app.use((err, req, res, next) => {
   // always log the error
   console.error('ERROR', req.method, req.path, err);
-
+  
   // only render if the error ocurred before sending the response
   if (!res.headersSent) {
-    res.status(500);
-    res.render('error');
+    
+    
+  res.status(500);
+  console.log('Hi')
+  res.render('error');
+    
   }
 });
 

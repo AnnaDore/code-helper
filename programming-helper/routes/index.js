@@ -19,7 +19,7 @@ function escapeRegex(text) {
   return text.replace(/[~[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
-router.get("/all", (req, res, next) => {
+router.get("/all",  async (req, res, next) => {
   if (req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     Snippet.find({ name: regex })
@@ -40,6 +40,77 @@ router.get("/all", (req, res, next) => {
         console.log(err);
       });
   } else {
+/*     const match = {};
+    const sort = {};
+    const limit = parseInt(req.query.limit);
+    const skip = parseInt(req.query.skip);
+
+    if (req.query.completed) {
+        match.completed = req.query.completed === 'true';
+    }
+
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(":");
+        sort[parts[0]] = parts[1] === 'desc'? -1 : 1;
+    }
+
+    try {
+        await req.user.populate('tasks').execPopulate({
+            path: 'tasks',
+            match,
+            options: {
+                sort,
+                limit,
+                skip
+            }
+        });
+        
+        const totalTasks = await Task.countDocuments({ owner: req.user._id }); 
+
+        const pages = Array.from({ length: Math.ceil(totalTasks / limit) },(v, idx) => {
+            return {
+                num: idx + 1,
+                limit,
+                skip: (limit * (idx + 1)) - limit
+            }
+        });
+
+        res.render('tasks', {
+            tasks: req.user.tasks,
+            enablePaging: totalTasks > limit,
+            pages,
+            limit
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    } */
+/*     var pageNo = parseInt(req.query.pageNo);
+    var size = parseInt(req.query.size);
+    var query = {};
+    if (pageNo < 0 || pageNo === 0) {
+      response = {
+        error: true,
+        message: "invalid page number, should start with 1",
+      };
+      return res.json(response);
+    }
+    query.skip = size * (pageNo - 1);
+    query.limit = size;
+    // Find some documents
+    Snippet.find({}, {}, query, function (err, data) {
+      // Mongo command to fetch all data from collection.
+      if (err) {
+        response = { error: true, message: "Error fetching data" };
+      } else {
+        response = { error: false, message: data };
+      }
+      res.render("snippets/all", {
+        pagination: { page: 3, limit: 10, totalRows: 2 },
+      });
+    })
+    .catch(err => {
+      console.log(err)
+    }) */
     Snippet.find()
       .then((data) => {
         res.render("snippets/all", {
@@ -52,6 +123,34 @@ router.get("/all", (req, res, next) => {
       });
   }
 });
+
+//pagination attempt
+/* router.get("/snippets", (req, res) => {
+  var pageNo = parseInt(req.query.pageNo);
+  var size = parseInt(req.query.size);
+  var query = {};
+  if (pageNo < 0 || pageNo === 0) {
+    response = {
+      error: true,
+      message: "invalid page number, should start with 1",
+    };
+    return res.json(response);
+  }
+  query.skip = size * (pageNo - 1);
+  query.limit = size;
+  // Find some documents
+  Snippet.find({}, {}, query, function (err, data) {
+    // Mongo command to fetch all data from collection.
+    if (err) {
+      response = { error: true, message: "Error fetching data" };
+    } else {
+      response = { error: false, message: data };
+    }
+    res.render("snippets/all", {
+      pagination: { page: 3, limit: 10, totalRows: 2 },
+    });
+  });
+}); */
 
 //detailed link
 router.get("/snippet/:id", (req, res, next) => {
@@ -87,8 +186,28 @@ router.get("/general/snippet/:id", (req, res, next) => {
     });
 });
 
-router.post("/snippet/:id", checkLogin, (req, res, next) => {
+router.post("/snippet/:id", async (req, res, next) => {
   const { connections } = req.body;
+  console.log(connections)
+
+    try {
+      await Snippet.findByIdAndUpdate(
+        { _id: req.params.id },
+        { $set: { connections } },
+        { new: true }
+      )
+      
+      connections.forEach(async id => {
+        await Snippet.findByIdAndUpdate(
+          { _id: id },
+          { $set: {connections:req.params.id} },
+          { new: true }
+        )
+      })
+      res.redirect("/snippet/" + req.params.id);
+    } 
+    catch(err){console.log(err)}
+/*   const { connections } = req.body;
   Snippet.findByIdAndUpdate(
     { _id: req.params.id },
     { $set: { connections } },
@@ -99,7 +218,7 @@ router.post("/snippet/:id", checkLogin, (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-    });
+    }); */
 });
 
 router.get("/snippet/edit/:id", checkLogin, (req, res, next) => {
@@ -143,6 +262,14 @@ router.get("/delete/:id", checkLogin, (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+router.get("/feedback", (req, res, next) => {
+  let first = "anna";
+  let second = ".dorenskaya";
+  let third = "@gmail.com";
+  let addr = first + second + third;
+  res.render("feedback");
 });
 
 module.exports = router;
