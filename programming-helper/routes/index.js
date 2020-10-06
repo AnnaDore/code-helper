@@ -19,7 +19,7 @@ function escapeRegex(text) {
   return text.replace(/[~[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
-router.get("/all",  async (req, res, next) => {
+router.get("/all", async (req, res, next) => {
   if (req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
     Snippet.find({ name: regex })
@@ -40,7 +40,7 @@ router.get("/all",  async (req, res, next) => {
         console.log(err);
       });
   } else {
-/*     const match = {};
+    /*     const match = {};
     const sort = {};
     const limit = parseInt(req.query.limit);
     const skip = parseInt(req.query.skip);
@@ -84,33 +84,7 @@ router.get("/all",  async (req, res, next) => {
     } catch (error) {
         res.status(500).send(error);
     } */
-/*     var pageNo = parseInt(req.query.pageNo);
-    var size = parseInt(req.query.size);
-    var query = {};
-    if (pageNo < 0 || pageNo === 0) {
-      response = {
-        error: true,
-        message: "invalid page number, should start with 1",
-      };
-      return res.json(response);
-    }
-    query.skip = size * (pageNo - 1);
-    query.limit = size;
-    // Find some documents
-    Snippet.find({}, {}, query, function (err, data) {
-      // Mongo command to fetch all data from collection.
-      if (err) {
-        response = { error: true, message: "Error fetching data" };
-      } else {
-        response = { error: false, message: data };
-      }
-      res.render("snippets/all", {
-        pagination: { page: 3, limit: 10, totalRows: 2 },
-      });
-    })
-    .catch(err => {
-      console.log(err)
-    }) */
+
     Snippet.find()
       .then((data) => {
         res.render("snippets/all", {
@@ -127,7 +101,25 @@ router.get("/all",  async (req, res, next) => {
 //pagination attempt
 /* router.get("/snippets", (req, res) => {
   var pageNo = parseInt(req.query.pageNo);
-  var size = parseInt(req.query.size);
+  let size = 5;
+  let n;
+  let collect = Snippet;
+  Snippet.countDocuments()
+  .then(count => {
+    countAllNum = Number(countAll);
+    if (countAllNum % size === 0) {
+      n = countAll / size;
+    } else {
+      n = countAll / size + 1;
+    }
+  
+    console.log(size + " size");
+    console.log(typeof(countAllNum));
+    console.log(countAllNum);
+  })
+ 
+
+
   var query = {};
   if (pageNo < 0 || pageNo === 0) {
     response = {
@@ -147,10 +139,113 @@ router.get("/all",  async (req, res, next) => {
       response = { error: false, message: data };
     }
     res.render("snippets/all", {
-      pagination: { page: 3, limit: 10, totalRows: 2 },
+      data,
+      pagination: {
+        page: pageNo, // The current page the user is on
+        pageCount: 10 // The total number of available pages
+      },
     });
   });
 }); */
+
+//pagination try 2
+router.get("/snippets", (req, res) => {
+  var pageNo = parseInt(req.query.pageNo);
+  let size = 10;
+  var query = {};
+  let n
+  if (pageNo < 0 || pageNo === 0) {
+    response = {
+      error: true,
+      message: "invalid page number, should start with 1",
+    };
+    return res.json(response);
+  }
+  query.skip = size * (pageNo - 1);
+  query.limit = size;
+  const amountOfSnippets = Snippet.countDocuments()
+  .then(count => {
+    countAllNum = Number(count);
+    if (countAllNum % size === 0) {
+      n = Math.floor(countAllNum / size);
+    } else {
+      n = Math.floor(countAllNum / size + 1);
+    }
+    return n
+  })
+
+  const paginatedSnippets =   Snippet.find({}, {}, query, n, function (err, data) {
+    // Mongo command to fetch all data from collection.
+    if (err) {
+      response = { error: true, message: "Error fetching data" };
+    } else {
+      response = { error: false, message: data };
+    }
+
+  }); 
+
+  Promise.all([amountOfSnippets, paginatedSnippets])
+  .then(allData => {
+    const data = allData[1]
+    console.log(data[0])
+    console.log(data[1])
+    res.render("snippets/all", {
+      data,
+      pagination: {
+        page: pageNo, // The current page the user is on
+        pageCount: n // The total number of available pages
+      },
+    });
+/* 
+    if (data[0] % size === 0) {
+      n = Math.floor(data[0] / size)
+    } else {
+      n = Math.floor(data[0] / size + 1);
+    } */
+
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  })
+
+  
+
+ 
+ 
+/*   Snippet.countDocuments()
+  .then(count => {
+    countAllNum = Number(count);
+    if (countAllNum % size === 0) {
+      n = countAllNum / size;
+    } else {
+      n = countAllNum / size + 1;
+    }
+    console.log(size + " size");
+    console.log(typeof(countAllNum));
+    console.log(countAllNum);
+  })
+ 
+  // Find some documents
+  Snippet.find({}, {}, query, function (err, data) {
+    // Mongo command to fetch all data from collection.
+    if (err) {
+      response = { error: true, message: "Error fetching data" };
+    } else {
+      response = { error: false, message: data };
+    }
+    res.render("snippets/all", {
+      data,
+      pagination: {
+        page: pageNo, // The current page the user is on
+        pageCount: 10 // The total number of available pages
+      },
+    });
+  }); 
+});*/
+
+
+
 
 //detailed link
 router.get("/snippet/:id", (req, res, next) => {
@@ -188,26 +283,27 @@ router.get("/general/snippet/:id", (req, res, next) => {
 
 router.post("/snippet/:id", async (req, res, next) => {
   const { connections } = req.body;
-  console.log(connections)
+  console.log(connections);
 
-    try {
+  try {
+    await Snippet.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: { connections } },
+      { new: true }
+    );
+
+    connections.forEach(async (id) => {
       await Snippet.findByIdAndUpdate(
-        { _id: req.params.id },
-        { $set: { connections } },
+        { _id: id },
+        { $set: { connections: req.params.id } },
         { new: true }
-      )
-      
-      connections.forEach(async id => {
-        await Snippet.findByIdAndUpdate(
-          { _id: id },
-          { $set: {connections:req.params.id} },
-          { new: true }
-        )
-      })
-      res.redirect("/snippet/" + req.params.id);
-    } 
-    catch(err){console.log(err)}
-/*   const { connections } = req.body;
+      );
+    });
+    res.redirect("/snippet/" + req.params.id);
+  } catch (err) {
+    console.log(err);
+  }
+  /*   const { connections } = req.body;
   Snippet.findByIdAndUpdate(
     { _id: req.params.id },
     { $set: { connections } },

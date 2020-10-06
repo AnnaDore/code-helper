@@ -9,6 +9,17 @@ body {
   background-color: #D8F79D;
 }
 
+img {
+  width: 100px;
+}
+
+.pagination-centered ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
 .banner {
   position: relative;
   text-align: center;

@@ -49,11 +49,16 @@ app.use(cookieParser());
 
 // Register the location for handlebars partials here:
 hbs.registerPartials(path.join(__dirname, 'views/partials'))
-//try pagination
+/* //try pagination
 var paginateHelper = require('express-handlebars-paginate');
 //Register Helper
 hbs.registerHelper('paginateHelper', paginateHelper);
-hbs.handlebars.registerHelper('paginateHelper', paginateHelper.createPagination);
+hbs.handlebars.registerHelper('paginateHelper', paginateHelper.createPagination); */
+
+//2nd try paginate
+
+var paginate = require('handlebars-paginate');
+hbs.registerHelper('paginate', paginate);
 
 
 

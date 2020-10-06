@@ -15,32 +15,29 @@
             </a>
         </div>
         {{/each}}
+
+    </div>
+    <div class="pagination pagination-centered">
+        <ul>
+            {{#paginate pagination type="first"}}
+            <li {{#if disabled}}class="disabled" {{/if}}><a href="?pageNo={{n}}">First</a></li>
+            {{/paginate}}
+            {{#paginate pagination type="previous"}}
+            <li {{#if disabled}}class="disabled" {{/if}}><a href="?pageNo={{n}}">Prev</a></li>
+            {{/paginate}}
+            {{#paginate pagination type="middle" limit="7"}}
+            <li {{#if active}}class="active" {{/if}}><a href="?pageNo={{n}}">{{n}}</a></li>
+            {{/paginate}}
+            {{#paginate pagination type="next"}}
+            <li {{#if disabled}}class="disabled" {{/if}}><a href="?pageNo={{n}}">Next</a></li>
+            {{/paginate}}
+            {{#paginate pagination type="last"}}
+            <li {{#if disabled}}class="disabled" {{/if}}><a href="?pageNo={{n}}">Last</a></li>
+            {{/paginate}}
+        </ul>
     </div>
     {{#if errorMessage}}
-<p>{{ errorMessage }}</p>
-{{/if}}
+    <p>{{ errorMessage }}</p>
+    {{/if}}
+
 </div>
-
-{{!--         {{#if enablePaging}}
-        <div class="tasksPaging">
-            Pages:
-            {{#each pages}}
-            <a href="/tasks?limit={{limit}}&skip={{skip}}">
-                {{num}}
-            </a>
-            {{/each}}
-        </div>
-        {{/if}}
-
-        <ul id="taskList">
-            {{#each tasks}}
-                <li>
-                    <input type="checkbox" {{#if completed }} checked="checked" {{/if}} onclick="toggleTask('{{ _id }}', {{ completed }})">
-                    <input type="text" value="{{ description }}" onchange="updateTask('{{ _id }}', this)">
-                    <button onclick="deleteTask('{{ _id }}')" class="deleteBtn">
-                        x
-                    </button>
-                </li>
-            {{/each}}
-        </ul>
- --}}
