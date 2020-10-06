@@ -40,51 +40,6 @@ router.get("/all", async (req, res, next) => {
         console.log(err);
       });
   } else {
-    /*     const match = {};
-    const sort = {};
-    const limit = parseInt(req.query.limit);
-    const skip = parseInt(req.query.skip);
-
-    if (req.query.completed) {
-        match.completed = req.query.completed === 'true';
-    }
-
-    if (req.query.sortBy) {
-        const parts = req.query.sortBy.split(":");
-        sort[parts[0]] = parts[1] === 'desc'? -1 : 1;
-    }
-
-    try {
-        await req.user.populate('tasks').execPopulate({
-            path: 'tasks',
-            match,
-            options: {
-                sort,
-                limit,
-                skip
-            }
-        });
-        
-        const totalTasks = await Task.countDocuments({ owner: req.user._id }); 
-
-        const pages = Array.from({ length: Math.ceil(totalTasks / limit) },(v, idx) => {
-            return {
-                num: idx + 1,
-                limit,
-                skip: (limit * (idx + 1)) - limit
-            }
-        });
-
-        res.render('tasks', {
-            tasks: req.user.tasks,
-            enablePaging: totalTasks > limit,
-            pages,
-            limit
-        });
-    } catch (error) {
-        res.status(500).send(error);
-    } */
-
     Snippet.find()
       .then((data) => {
         res.render("snippets/all", {
@@ -96,61 +51,13 @@ router.get("/all", async (req, res, next) => {
         console.log(err);
       });
   }
-});
+}); 
 
-//pagination attempt
-/* router.get("/snippets", (req, res) => {
-  var pageNo = parseInt(req.query.pageNo);
-  let size = 5;
-  let n;
-  let collect = Snippet;
-  Snippet.countDocuments()
-  .then(count => {
-    countAllNum = Number(countAll);
-    if (countAllNum % size === 0) {
-      n = countAll / size;
-    } else {
-      n = countAll / size + 1;
-    }
-  
-    console.log(size + " size");
-    console.log(typeof(countAllNum));
-    console.log(countAllNum);
-  })
- 
-
-
-  var query = {};
-  if (pageNo < 0 || pageNo === 0) {
-    response = {
-      error: true,
-      message: "invalid page number, should start with 1",
-    };
-    return res.json(response);
-  }
-  query.skip = size * (pageNo - 1);
-  query.limit = size;
-  // Find some documents
-  Snippet.find({}, {}, query, function (err, data) {
-    // Mongo command to fetch all data from collection.
-    if (err) {
-      response = { error: true, message: "Error fetching data" };
-    } else {
-      response = { error: false, message: data };
-    }
-    res.render("snippets/all", {
-      data,
-      pagination: {
-        page: pageNo, // The current page the user is on
-        pageCount: 10 // The total number of available pages
-      },
-    });
-  });
-}); */
 
 //pagination try 2
-router.get("/snippets", (req, res) => {
-  var pageNo = parseInt(req.query.pageNo);
+router.get("/snippets", (req, res, next) => {
+  let pageNo = parseInt(req.query.pageNo);
+  console.log(req.query.pageNo)
   let size = 10;
   var query = {};
   let n
@@ -171,38 +78,32 @@ router.get("/snippets", (req, res) => {
     } else {
       n = Math.floor(countAllNum / size + 1);
     }
+    console.log(req.query.pageNo)
     return n
   })
-
   const paginatedSnippets =   Snippet.find({}, {}, query, n, function (err, data) {
+    console.log(req.query.pageNo)
     // Mongo command to fetch all data from collection.
     if (err) {
       response = { error: true, message: "Error fetching data" };
     } else {
       response = { error: false, message: data };
     }
-
   }); 
-
   Promise.all([amountOfSnippets, paginatedSnippets])
   .then(allData => {
+    console.log(req.query.pageNo)
     const data = allData[1]
-    console.log(data[0])
-    console.log(data[1])
+    //console.log(data[0])
+   // console.log(data[1])
     res.render("snippets/all", {
       data,
       pagination: {
         page: pageNo, // The current page the user is on
         pageCount: n // The total number of available pages
       },
+      userInSession: req.session.currentUser
     });
-/* 
-    if (data[0] % size === 0) {
-      n = Math.floor(data[0] / size)
-    } else {
-      n = Math.floor(data[0] / size + 1);
-    } */
-
     })
     .catch(err => {
       console.log(err)
@@ -212,41 +113,6 @@ router.get("/snippets", (req, res) => {
   
 
  
- 
-/*   Snippet.countDocuments()
-  .then(count => {
-    countAllNum = Number(count);
-    if (countAllNum % size === 0) {
-      n = countAllNum / size;
-    } else {
-      n = countAllNum / size + 1;
-    }
-    console.log(size + " size");
-    console.log(typeof(countAllNum));
-    console.log(countAllNum);
-  })
- 
-  // Find some documents
-  Snippet.find({}, {}, query, function (err, data) {
-    // Mongo command to fetch all data from collection.
-    if (err) {
-      response = { error: true, message: "Error fetching data" };
-    } else {
-      response = { error: false, message: data };
-    }
-    res.render("snippets/all", {
-      data,
-      pagination: {
-        page: pageNo, // The current page the user is on
-        pageCount: 10 // The total number of available pages
-      },
-    });
-  }); 
-});*/
-
-
-
-
 //detailed link
 router.get("/snippet/:id", (req, res, next) => {
   const oneSnippet = Snippet.findById(req.params.id).populate("connections");

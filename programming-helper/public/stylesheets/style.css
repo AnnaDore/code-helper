@@ -13,12 +13,7 @@ img {
   width: 100px;
 }
 
-.pagination-centered ul{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  list-style-type: none;
-}
+
 
 .banner {
   position: relative;
@@ -219,6 +214,14 @@ form.example::after {
   position: relative;
 }
 
+.pagination-inside {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
 .all-snippets {
   display: flex;
   flex-direction: row;
@@ -228,12 +231,20 @@ form.example::after {
 
   /* margin-top: 170px; */
   /*  margin-bottom: 70px; */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
+  
 }
+
+.pagination-centered ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style-type: none;
+
+}
+
+ .active {
+  font-size: 2em;
+} 
 
 .real-one {
   display: flex;
