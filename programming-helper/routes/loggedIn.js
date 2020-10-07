@@ -27,6 +27,7 @@ router.get(`/:id/create`,   (req, res, next) => {
 router.post("/:id/create", async (req, res, next) => {
   const { name, description, snippet, extension, tag } = req.body;
   console.log(req.session.currentUser, "user");
+  console.log(req.body)
   let imageUrl;
   if (extension === "HTML") {
     imageUrl = "/images/html.jpg";
@@ -112,7 +113,7 @@ router.post("/bio-update/:id", (req, res, next) => {
     { new: true }
   )
     .then(() => {
-      res.redirect(`/${req.params.id}`);
+      res.redirect(`/user/${req.params.id}`);
     })
     .catch((err) => {
       console.log(err);
@@ -131,7 +132,7 @@ router.post(
       { new: true }
     )
       .then(() => {
-        res.redirect(`/${req.params.id}`);
+        res.redirect(`/user/${req.params.id}`);
       })
       .catch((err) => {
         console.log(err);

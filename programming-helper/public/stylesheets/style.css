@@ -441,9 +441,6 @@ width: 90%;
  
 }
 
-.avatar {
-  height: 100px;
-}
 
 img {
   /* height: 100px; */
@@ -496,7 +493,7 @@ code {
 /* profile */
 .profile-info {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -508,6 +505,34 @@ code {
     ),
     url(/images/profile.jpg);
 }
+.profile-info {
+  width: 90%
+}
+
+.info-avatar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.create-snippet-link {
+  padding: 10px;
+  background-color: #ADF7A3;
+  text-decoration: none;
+  border: 2px green solid;
+}
+
+.profile-snippets {
+  text-align: center;
+}
+
+
 
 .edit-profile-info {
   position: absolute;
@@ -517,6 +542,56 @@ code {
 }
 
 /* feedback */
+
+.feedback {
+  height:   100vh;;
+}
+
+.feedback-wrapper {
+  
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  margin-bottom: 50px;
+}
+
+.feedback-wrapper img {
+  width: 250px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 300px;
+}
+
+.contact-form  div {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+  text-align: center;
+}
+
+.contact-form div input {
+  margin-bottom: 10px;
+  padding: 10px;
+
+}
+
+.contact-form button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #83F9D2;
+}
+
+
 
 /* footer */
 footer {
@@ -596,7 +671,7 @@ footer {
 
 }
 
-@media screen and (min-width: 481px) and (max-width: 768px) {
+@media screen and (min-width: 415px) and (max-width: 768px) {
 
 
   .signup-form div {
@@ -672,6 +747,7 @@ footer {
   .one-snippet-image {
     width: 100px;
   }
+
 }
 
 @media (min-width: 1025px) {
@@ -714,48 +790,32 @@ footer {
   .one-snippet-image {
     width: 150px;
   }
-}
+  .feedback-wrapper {
+    top: 50%;
+    width: 600px;
+  }
+  .contact-form {
+    width: 500px;
+  }
+  .profile-info {
+    
+    top: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .info-avatar {
+    margin-right: 60px;
+   
+  }
 
-.all-page {
-  
-}
+  .logout {
+    width: 100px;
+    padding: 5px;;
+  }
+  .nav {
+    width: 250px;
+  }
 
-.pagination-inside {
-  
-}
-
-.all-snippets {
-  
-}
-
-.pagination-centered {
-
-}
-
-.pagination-centered ul{
- 
-}
-
-.active {
-  
-} 
-
-.real-one {
-  
-}
-
-.one-snippet-info {
- 
-}
-
-.one-snippet-info h4 {
- 
-}
-
-.one-snippet-info p {
- 
-}
-
-.one-snippet-image {
-  
 }
