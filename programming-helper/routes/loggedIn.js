@@ -25,7 +25,6 @@ router.get(`/:id/create`,   (req, res, next) => {
 });
 
 router.post("/:id/create", async (req, res, next) => {
-
   const { name, description, snippet, extension, tag } = req.body;
   console.log(req.session.currentUser, "user");
   let imageUrl;
@@ -36,9 +35,7 @@ router.post("/:id/create", async (req, res, next) => {
   } else {
     imageUrl = "/images/js.jpg";
   }
-
   try {
-
     const snippetName = await Snippet.findOne({name})
     if (snippetName) {
       res.render('snippets/create', {errorMessage: "The name exists", userInSession: req.session.currentUser})

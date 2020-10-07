@@ -113,7 +113,7 @@ function escapeRegex(text) {
 
 router.get("/all", async (req, res, next) => {
   let pageNo = parseInt(req.query.pageNo);
-  let size = 10;
+  let size = 8;
   var query = {};
   let n;
   if (pageNo < 0 || pageNo === 0) {
@@ -368,11 +368,9 @@ router.get("/delete/:id", checkLogin, (req, res, next) => {
 });
 
 router.get("/feedback", (req, res, next) => {
-  let first = "anna";
-  let second = ".dorenskaya";
-  let third = "@gmail.com";
-  let addr = first + second + third;
-  res.render("feedback");
+
+  let addr = "vliegende.vogel.dodo@gmail.com";
+  res.render("feedback", {userInSession: req.session.currentUser, addr});
 });
 
 module.exports = router;
