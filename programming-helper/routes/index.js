@@ -15,7 +15,8 @@ router.get("/", (req, res, next) => {
   res.render("index", { userInSession: req.session.currentUser });
 });
 
-function escapeRegex(text) {
+//search and all - works!!1
+/*  function escapeRegex(text) {
   return text.replace(/[~[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
@@ -51,13 +52,11 @@ router.get("/all", async (req, res, next) => {
         console.log(err);
       });
   }
-}); 
+});  */
 
-
-//pagination try 2
-router.get("/snippets", (req, res, next) => {
+//pagination  works!!!!1
+/* router.get("/snippets", (req, res, next) => {
   let pageNo = parseInt(req.query.pageNo);
-  console.log(req.query.pageNo)
   let size = 10;
   var query = {};
   let n
@@ -78,12 +77,9 @@ router.get("/snippets", (req, res, next) => {
     } else {
       n = Math.floor(countAllNum / size + 1);
     }
-    console.log(req.query.pageNo)
     return n
   })
   const paginatedSnippets =   Snippet.find({}, {}, query, n, function (err, data) {
-    console.log(req.query.pageNo)
-    // Mongo command to fetch all data from collection.
     if (err) {
       response = { error: true, message: "Error fetching data" };
     } else {
@@ -109,10 +105,155 @@ router.get("/snippets", (req, res, next) => {
       console.log(err)
     })
   })
+ */
 
-  
+function escapeRegex(text) {
+  return text.replace(/[~[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
- 
+router.get("/all", async (req, res, next) => {
+  let pageNo = parseInt(req.query.pageNo);
+  let size = 10;
+  var query = {};
+  let n;
+  if (pageNo < 0 || pageNo === 0) {
+    response = {
+      error: true,
+      message: "invalid page number, should start with 1",
+    };
+    return res.json(response);
+  }
+  query.skip = size * (pageNo - 1);
+  query.limit = size;
+  const amountOfSnippets = Snippet.countDocuments().then((count) => {
+    countAllNum = Number(count);
+    if (countAllNum % size === 0) {
+      n = Math.floor(countAllNum / size);
+    } else {
+      n = Math.floor(countAllNum / size + 1);
+    }
+    return n;
+  });
+  const paginatedSnippets = Snippet.find({}, {}, query, n, function (
+    err,
+    data
+  ) {
+    if (err) {
+      response = { error: true, message: "Error fetching data" };
+    } else {
+      response = { error: false, message: data };
+    }
+  });
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+     Snippet.find({ name: regex })
+      .then((data) => {
+        if (data.length === 0) {
+          res.render("snippets/empty-search", {
+            userInSession: req.session.currentUser,
+          });
+        } else {
+          res.render("snippets/allNotPaginated", {
+            data: data,
+            userInSession: req.session.currentUser,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      }); 
+  }    else {
+    Promise.all([ amountOfSnippets, paginatedSnippets])
+    .then((allData) => {
+      const data = allData[1];
+      res.render("snippets/all", {
+        data,
+        pagination: {
+          page: pageNo, // The current page the user is on
+          pageCount: n, // The total number of available pages
+        },
+        userInSession: req.session.currentUser,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+});
+
+
+
+/* router.get("/snippets", (req, res, next) => {
+  let pageNo = parseInt(req.query.pageNo);
+  let size = 10;
+  var query = {};
+  let n
+  if (pageNo < 0 || pageNo === 0) {
+    response = {
+      error: true,
+      message: "invalid page number, should start with 1",
+    };
+    return res.json(response);
+  }
+  query.skip = size * (pageNo - 1);
+  query.limit = size;
+  const amountOfSnippets = Snippet.countDocuments()
+  .then(count => {
+    countAllNum = Number(count);
+    if (countAllNum % size === 0) {
+      n = Math.floor(countAllNum / size);
+    } else {
+      n = Math.floor(countAllNum / size + 1);
+    }
+    return n
+  })
+  const paginatedSnippets =   Snippet.find({}, {}, query, n, function (err, data) {
+    if (err) {
+      response = { error: true, message: "Error fetching data" };
+    } else {
+      response = { error: false, message: data };
+    }
+  }); 
+  Promise.all([amountOfSnippets, paginatedSnippets])
+  .then(allData => {
+    console.log(req.query.pageNo)
+    const data = allData[1]
+    //console.log(data[0])
+   // console.log(data[1])
+    res.render("snippets/all", {
+      data,
+      pagination: {
+        page: pageNo, // The current page the user is on
+        pageCount: n // The total number of available pages
+      },
+      userInSession: req.session.currentUser
+    });
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }) */
+
+/*   Promise.all([amountOfSnippets, paginatedSnippets])
+  .then(allData => {
+    console.log(req.query.pageNo)
+    const data = allData[1]
+    //console.log(data[0])
+   // console.log(data[1])
+    res.render("snippets/all", {
+      data,
+      pagination: {
+        page: pageNo, // The current page the user is on
+        pageCount: n // The total number of available pages=
+      },
+      userInSession: req.session.currentUser
+    });
+    })
+    .catch(err => {
+      console.log(err)
+    }) */
+// })
+
 //detailed link
 router.get("/snippet/:id", (req, res, next) => {
   const oneSnippet = Snippet.findById(req.params.id).populate("connections");
@@ -236,47 +377,4 @@ router.get("/feedback", (req, res, next) => {
 
 module.exports = router;
 
-//search attempt
-/* 
-router.get('/search', (req, res, next) => {
-  let q = req.query.q
-//full search
-  Snippet.find({
-    $text: {
-      $search: q
-    }
-  }, {
-  _id: 0,
-  __v: 0
-  }, function(err, data) {
-    res.json(data)
-  }) 
-//partial search
-Snippet.find({
-  name: {
-    $regex: new RegExp(q)
-  }
-}, {
-  _id: 0, 
-  __v: 0
-}, function(err, data) {
-  res.json(data)
-}).limit(10)
 
-})*/
-
-//try to populate snippet model
-
-/* router.get('/populate-all', (req, res, next) => {
-   const tags = Tag.find()
-  const snippet = Snippet.find({name: "dodo"}).populate('tags')
-  Promise.all([tags, snippet]) 
-   .then(data => {
-    console.log(data)
-    res.render('test', {data})
-  })
-  .catch(err => {
-    console.log(err)
-  })
-}) 
- */

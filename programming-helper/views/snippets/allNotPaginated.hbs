@@ -1,0 +1,32 @@
+<div class="all-page">
+  <div class="banner-all"></div>
+  <div class='pagination-inside'>
+    <div class="all-snippets">
+      {{#each data}}
+      <div class="one-snippet">
+        <a class="real-one" href="/general/snippet/{{id}}">
+          <div class="one-snippet-image">
+            <img src="{{imageUrl}}" alt="image extension">
+          </div>
+          <div class="one-snippet-info">
+            <h4>{{name}}</h4>
+            <p>{{description}}</p>
+            <p><i>{{tag}}</i></p>
+          </div>
+        </a>
+      </div>
+      {{/each}}
+
+    </div>
+
+  </div>
+
+  <div>
+
+  </div>
+
+  {{#if errorMessage}}
+  <p>{{ errorMessage }}</p>
+  {{/if}}
+
+</div>

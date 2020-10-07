@@ -14,7 +14,7 @@
 <body>
   <header>
     <form class="example" action="/all" method="GET">
-      <input id="search" type="search" name="search" placeholder="Find a code!">
+      <input id="search" type="search" name="search" placeholder="Find a code!" minlength="3" required>
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
     <div class="nav">
@@ -38,7 +38,7 @@
         <a href="/">Home</a>
       </div>
       <div>
-        <a href="/snippets?pageNo=1">Pag snippets</a>
+        <a href="/all?pageNo=1">Pag snippets</a>
       </div>
       <div class="icons">
         <ul>
