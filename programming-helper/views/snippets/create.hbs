@@ -1,13 +1,11 @@
 {{#if errorMessage}}
 <p class="error">{{ errorMessage }}</p>
 {{/if}}
-
 <div class="create-snippet-whole">
     <div class="banner create-snippet"></div>
-
-    <form class="create-form" action="create" method="post">
+    <form class="create-form-snippet" action="create" method="post">
         <div class="create-snippet-info">
-                    <div class="create-name">
+            <div class="create-name">
             <label for="name">Snippet name</label>
             <input class='create' type="text" name='name' placeholder="at least 3 chars">
         </div>
@@ -18,12 +16,10 @@
         <div class="create-extension">
             <label for="extension">Extension</label>
             <select class='create' name="extension" id="">
-
                 <option selected="true" disabled>Choose the extension</option>
                 {{#each extension as |item|}}
                 <option value="{{item}}">{{item}}</option>
                 {{/each}}
-
             </select>
         </div>
         <div class="create-tags">
@@ -41,12 +37,10 @@
                 <label for="snippet">Snippet</label>
                 <textarea name="snippet" id="" class="scroll-box"></textarea>
             </div>
+             <button class="yes" type="submit">Yes</button>
+               <a href="/user/{{userInSession._id}}">Back</a>
         </div>
-        <button class="yes" type="submit">Yes</button>
-        <a href="/user/{{userInSession._id}}">Back</a>
+       
+      
     </form>
-    
-
-
-
 </div>
