@@ -6,28 +6,27 @@
             <img src="{{userInSession.avatarPath}}" alt="avatar">
             {{else}}
             <a href="/{{userInSession._id}}/edit"><img src="/images/sun2.png" alt=""></a>
-
             {{/if}}
         </div>
         <div class="edit-profile-text">
-            <h1>Hey {{userInSession.username}}</h1>
-
+            <h1>{{userInSession.username}}</h1>
             <h2>{{userInSession.bio}}</h2>
-
             <form action="/bio-update/{{userInSession._id}}" method="POST">
                 <label for="bio">Your bio</label>
                 <input type="text" name="bio" placeholder="{{userInSession.bio}}">
-
                 <button type="submit">Yes!</button>
             </form>
-
         </div>
         <div class="edit-avatar">
-        <form action="/add-avatar/{{userInSession._id}}" method='post' enctype="multipart/form-data">
-            <label for="avatar">Your avatar</label>
-            <input type="file" name='avatar'>
-            <button type='submit'>Submit</button>
-        </form>
+            <form action="/add-avatar/{{userInSession._id}}" method='post' enctype="multipart/form-data">
+                
+                <div>
+                    <label for="avatar">Your avatar</label>
+                    <input type="file" name='avatar'>
+                    <button type='submit'>Submit</button>
+                </div>
+
+            </form>
         </div>
         <a href="/user/{{userInSession._id}}">Back to your profile</a>
     </div>
