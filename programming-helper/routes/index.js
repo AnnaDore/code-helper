@@ -291,14 +291,12 @@ router.get("/general/snippet/:id", (req, res, next) => {
 router.post("/snippet/:id", async (req, res, next) => {
   const { connections } = req.body;
   console.log(connections);
-
   try {
     await Snippet.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: { connections } },
       { new: true }
     );
-
     connections.forEach(async (id) => {
       await Snippet.findByIdAndUpdate(
         { _id: id },
@@ -310,18 +308,6 @@ router.post("/snippet/:id", async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-  /*   const { connections } = req.body;
-  Snippet.findByIdAndUpdate(
-    { _id: req.params.id },
-    { $set: { connections } },
-    { new: true }
-  )
-    .then((data) => {
-      res.redirect("/snippet/" + req.params.id);
-    })
-    .catch((err) => {
-      console.log(err);
-    }); */
 });
 
 router.get("/snippet/edit/:id", checkLogin, (req, res, next) => {
@@ -342,8 +328,9 @@ router.get("/snippet/edit/:id", checkLogin, (req, res, next) => {
     });
 });
 
-router.post("/snippet/:id", (req, res, next) => {
+router.post("/snippet/edit/:id", (req, res, next) => {
   const { name, description, snippet } = req.body;
+  userInSession =  req.session.currentUser
   Snippet.findByIdAndUpdate(
     { _id: req.params.id },
     { $set: { name, description, snippet } },
@@ -360,7 +347,7 @@ router.post("/snippet/:id", (req, res, next) => {
 router.get("/delete/:id", checkLogin, (req, res, next) => {
   Snippet.findByIdAndDelete({ _id: req.params.id })
     .then(() => {
-      res.redirect("/" + req.session.currentUser._id);
+      res.redirect("/user/" + req.session.currentUser._id);
     })
     .catch((err) => {
       console.log(err);
@@ -368,7 +355,6 @@ router.get("/delete/:id", checkLogin, (req, res, next) => {
 });
 
 router.get("/feedback", (req, res, next) => {
-
   let addr = "vliegende.vogel.dodo@gmail.com";
   res.render("feedback", {userInSession: req.session.currentUser, addr});
 });

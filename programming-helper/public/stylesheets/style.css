@@ -21,7 +21,6 @@ img {
   width: 40px;
 }
 
-
 .home-search {
   display: flex;
   flex-direction: row;
@@ -33,7 +32,6 @@ img {
   text-align: center;
   width: 100%;
   height: 100vh;
-
   background-size: cover;
 }
 
@@ -42,7 +40,6 @@ img {
 }
 
 /* header */
-
 .container div {
   position: relative;
   background-color: #5b5e6d;
@@ -52,7 +49,6 @@ img {
   right: 20px;
 }
 header {
-  /* position: fixed; */
   top: 0;
   left: 0;
   display: flex;
@@ -85,6 +81,7 @@ header {
   width: 180px;
   justify-content: space-around; 
   font-size: 0.8em;
+  align-items: center;
 }
 
 .signup {
@@ -93,7 +90,6 @@ header {
 }
 
 /* 1st page with the search  */
-
 .banner {
   position: relative;
   text-align: center;
@@ -113,10 +109,6 @@ header {
 }
 
 /* search */
-
- 
-
-
 /* Style the search field */
 form.example input[type="text"] {
   padding: 10px;
@@ -155,13 +147,9 @@ form.example::after {
   display: flex;
   justify-content: space-around;
   padding: 10px 0 10px 10px;
-  
 }
 
-
-
 /* text part on the 1st page */
-
 .welcome {
   position: absolute;
   top: 50%;
@@ -227,11 +215,7 @@ form.example::after {
   text-align: center;    
 }
 
-
-
-
 /* all snippets page */
-
 .banner-all {
   position: relative;
   text-align: center;
@@ -242,14 +226,12 @@ form.example::after {
       rgba(255, 255, 255, 0.8)
     ),
     url(/images/alotofcode.jpeg);
-
   background-size: cover;
   background-repeat: repeat-y;
 }
 
 .all-page {
   position: relative;
-
 }
 
 .pagination-inside {
@@ -279,7 +261,6 @@ width: 90%;
   flex-direction: row;
   justify-content: space-between;
   list-style-type: none;
-  
 }
 
 .active {
@@ -289,8 +270,6 @@ width: 90%;
 .real-one {
   display: flex;
   flex-direction: row;
-  /* background-color: red; */
-  /* justify-content: space-between; */
   align-items: center;
   width: 150px;
   height: 120px;
@@ -303,25 +282,77 @@ width: 90%;
   color: #3A403E;
 }
 
-.one-snippet-info {
-  display: flex;
-  flex-direction: column;
-  width: 100px;
-  margin-left: 10px;
-}
-
 .one-snippet-info h4 {
   font-size: 0.7em;
-  
 }
 
 .one-snippet-info p {
   font-size: 0.6em;
- 
 }
-
 .one-snippet-image {
   width: 50px;
+}
+
+.put-inside  {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 70%;
+}
+
+.code-snippe {
+  width: 300px;
+}
+.snippet-view {
+  width: 300px;
+}
+
+.snippet-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.one-snippet-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.snippet-data-info {
+  background-color: #DEF7DB;
+  display: flex;
+  flex-direction: column;
+}
+
+.snippet-data-info  p {
+  text-align: left;
+}
+.user-info-data {
+  text-align: left;
+}
+.add-connection form select{
+  text-align: center;
+  margin-bottom: 10px;
+}
+.add-connection form  button {
+  padding: 8px;
+  background-color: #B1EDAA;
+}
+
+.add-connection form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 /* signup */
@@ -373,10 +404,6 @@ width: 90%;
 
 /* one snippet page */
 .banner-one-snippet {
-  position: relative;
-  text-align: center;
-  width: 100%;
-  height: 100vh;
   background: linear-gradient(
       rgba(255, 255, 255, 0.7),
       rgba(255, 255, 255, 0.8)
@@ -385,21 +412,7 @@ width: 90%;
   background-size: cover;
 }
 
-.one-snippet-whole {
-  /* margin-top: 70px; */
-  margin-bottom: 80px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-}
-
-.one-snippet-page {
-  /* margin-top: 70px; */
-  margin-bottom: 90px;
-}
-
+/* error  */
 .error {
   background: linear-gradient(
       rgba(255, 255, 255, 0.7),
@@ -425,7 +438,6 @@ width: 90%;
 }
 
 /* create snippet page */
-
 .create {
   width: 200px;
   padding: 10px;
@@ -440,7 +452,6 @@ width: 90%;
 }
 
 img {
-  /* height: 100px; */
   padding-left: 10px;
 }
 
@@ -449,12 +460,7 @@ code {
   height: 200px;
 }
 
-.create-snippet-whole {
- 
-}
-
 .create-form-snippet {
- 
   position: absolute;
   top: 60%;
   left: 50%;
@@ -464,13 +470,17 @@ code {
   flex-direction: column;
   align-items: center;
   width: 80%;
-  
-  
+}
+
+.snippet-create-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .scroll-box {
-  height: 250px;
-  width: 350px;
+  height: 220px;
+  width: 320px;
   overflow: auto;
   background-color: #EBF5D8;
   color: black;
@@ -491,6 +501,42 @@ code {
   font-size: 1.1em;
   margin-bottom: 20px;
 }
+
+/* edit snippet  */
+.edit-snippet-form {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.edit-snippet-input {
+  padding: 8px;
+  border: 2px solid black;
+  width: 250px;
+  margin-bottom: 10px;
+}
+
+.edit-snippet-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.scroll-box-edit {
+  height: 400px;
+  background-color: #C4F9BD ;
+}
+
+.edit-snippet-form form button {
+  padding: 10px;
+  width: 200px;
+  background-color: #9CF590;
+  margin-bottom: 10px;
+} 
 
 /* profile */
 .profile-info {
@@ -535,7 +581,6 @@ code {
 }
 
 /* edit profile */
-
 .edit-profile-info {
   position: absolute;
   top: 50%;
@@ -545,14 +590,12 @@ code {
   flex-direction: column;
   align-items: center;
   text-align: center;
- 
 }
 
 .edit-avatar form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 .edit-profile-info input, .edit-avatar input {
@@ -575,17 +618,14 @@ code {
 }
 
 /* feedback */
-
 .feedback {
   height:   100vh;;
 }
 
 .feedback-wrapper {
-  
   position: absolute;
   top: 60%;
   left: 50%;
-  
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
@@ -615,7 +655,6 @@ justify-content: space-between;
 .contact-form div input {
   margin-bottom: 10px;
   padding: 10px;
-
 }
 
 .contact-form button {
@@ -624,12 +663,9 @@ justify-content: space-between;
   background-color: #83F9D2;
 }
 
-
-
 /* footer */
 footer {
   width: 100%;
-  /* position: fixed; */
   bottom: 0;
   font-size: 0.9em;
 }
@@ -711,8 +747,6 @@ footer {
 }
 
 @media screen and (min-width: 415px) and (max-width: 768px) {
-
-
   .signup-form div {
     display: flex;
     flex-direction: row;
@@ -726,7 +760,6 @@ footer {
   .real-one {
     width: 200px;
     height: 150px;
-    
   }
   .one-snippet-info h4 {
     font-size: 1.1em;
@@ -736,8 +769,19 @@ footer {
   }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
+@media screen and (min-width: 690px) and (max-width: 768px) {
+  .user-info-data {
+    font-size: 1.5em;
+  }
+  .snippet-data-info {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-left: 20px;
+    width: 300px;
+  }
+}
 
+@media screen and (min-width: 769px) and (max-width: 1024px) {
   .signup-form div {
     display: flex;
     flex-direction: row;
@@ -760,11 +804,9 @@ footer {
     justify-content: space-between;
     margin-bottom: 10px;
   }
-
   .create-form div label {
     margin-right: 10px;
   }
-
   .main-search-input {
     width: 500px;
     padding: 30px;
@@ -778,7 +820,6 @@ footer {
   .real-one {
     width: 300px;
     height: 150px;
-    
   }
   .one-snippet-info h4 {
     font-size: 1.2em;
@@ -788,14 +829,10 @@ footer {
   }
   .edit-profile-info {
    width: 400px;
-  
-   
   }
   .logout {
     padding: 8px;
-    
   }
-
   .nav {
     width: 300px;
     align-items: baseline;
@@ -812,13 +849,47 @@ footer {
     color: red
   }
   .scroll-box {
-    height: 360px;
+    height: 320px;
     width: 500px;
+  }
+    .user-info-data {
+    font-size: 2em;
+  }
+  .snippet-data-info {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 20px;
+    width: 300px;
+  }
+  .snippet-view {
+    width: 600px;
+    height: 300px;
+    font-size: 1.1em;
+  }
+  .add-connection {
+    font-size: 1.2em;
+  }
+  .add-connection form select{
+    font-size: 1.1em;
+  }
+  .add-connection form  button {
+    padding: 15px;
+    background-color: #B1EDAA;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  } 
+  .snippet-buttons a {
+    font-size: 1.2em;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+  .wrapper div {
+    font-size: 1.3em; 
   }
 }
 
-@media (min-width: 1025px) {
 
+@media (min-width: 1025px) {
   .signup-form div {
     display: flex;
     flex-direction: row;
@@ -849,7 +920,6 @@ footer {
   .real-one {
     width: 400px;
     height: 170px;
-    
   }
   .one-snippet-info h4 {
     font-size: 1.4em;
@@ -865,7 +935,6 @@ footer {
     width: 500px;
   }
   .profile-info {
-    
     top: 50%;
     display: flex;
     flex-direction: row;
@@ -874,80 +943,37 @@ footer {
   }
   .info-avatar {
     margin-right: 60px;
-   
   }
-
   .logout {
-    width: 100px;
-    padding: 5px;;
+    width: 150px;
+    padding: 10px;;
   }
   .nav {
-    width: 250px;
+    width: 350px;
     align-items: baseline;
+    font-size: 1.1em;
   }
   .create-form-snippet {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: baseline;
   }
-
-}
-/* .create {
-  width: 200px;
-  padding: 10px;
-}
-
-.create-form, .create-name, .create-description, .create-extension, .create-tags, .create-snippet {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-weight: bold;
-  color: #051D14;
-}
-
-img {
- 
-  padding-left: 10px;
+  .scroll-box {
+    height: 500px;
+    width: 500px;
+    margin-left: 30px;
+  }
+  .textarea-edit {
+    display: flex;
+    flex-direction: row;
+  }
+  .put-inside {
+    font-size: 1.5em;
+  }
+  .snippet-view {
+    width: 600px;
+    height: 300px;
+  }
 }
 
-code {
-  background: red;
-  height: 200px;
-}
-
-.create-form {
-  margin-top: 50px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-}
-
-.scroll-box {
-  height: 300px;
-  width: 350px;
-  overflow: auto;
-  background-color: #EBF5D8;
-  color: black;
-  scrollbar-base-color: gold;
-  font-family: sans-serif;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.snippet-textarea {
-  color: black;
-}
-
-.yes {
-  padding: 10px;
-  width: 200px;
-  background-color: #C5EB7D;
-  font-size: 1.2em;
-  margin-bottom: 10px;
-} */

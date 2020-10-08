@@ -1,33 +1,27 @@
-<div class="permanent">
-    <form action="/snippet/{{snippet.id}}" method="post">
-    <label for="name">Snippet name</label>
-    <input type="text" name='name' value="{{snippet.name}}">
-    <br>
-     <label for="description">Snippet description</label>
-    <input type="text" name="description" value="{{snippet.description}}">
-    <br>
-     <label for="snippet">Snippet</label>
-         <textarea name="snippet" id="" cols="30" rows="10"  class="scroll-box">{{snippet.snippet}}</textarea>
-    {{!-- <input type="text" name="snippet" value="{{snippet.snippet}}"> --}}
-    <br>
-
-   
-   
-
-<br>
-    {{!--  <label for="tags">Tags</label>
-    <select  name="tags" id="tags" multiple>
-        {{#each data}}
-        <option value="{{name}}">{{name}}</option>
-         {{/each}}
-    </select> --}}
-   <button type="submit">Yes</button>
-</form>
-
-<a href="/">Home</a>
-
-{{#if errorMessage}}
+<div>
+    {{#if errorMessage}}
     <p>{{ errorMessage }}</p>
-{{/if}}
+    {{/if}}
+    <div class="banner-one-snippet banner"></div>
+    <div class="edit-snippet-form">
+        <form action="/snippet/edit/{{snippet.id}}" method="post">
+            <div>
+                <div>
+                    <label  class="edit-snippet-label" for="name">Snippet name</label>
+                    <input class="edit-snippet-input" type="text" name='name' value="{{snippet.name}}">
+                </div>
+                <div>
+                    <label   class="edit-snippet-label" for="description">Snippet description</label>
+                    <input class="edit-snippet-input" type="text" name="description" value="{{snippet.description}}">
+                </div>
+            </div>
+            <div class="textarea-edit">
+                <label   class="edit-snippet-label" for="snippet">Snippet</label>
+                <textarea name="snippet" id="" cols="30" rows="10" class="scroll-box-edit scroll-box">{{snippet.snippet}}</textarea>
+            </div>
+            <button type="submit">Yes</button>
+            <br>
+            <a href="/snippet/{{snippet._id}}">Back</a>
+        </form>
+    </div>
 </div>
-
