@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
        if(message.length < 3) {
            statusElm.append('<div>Message has to be more than 3 chars</div>')
        }
-    }
+    })
 })
 
 

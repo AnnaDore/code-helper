@@ -15,105 +15,13 @@ router.get("/", (req, res, next) => {
   res.render("index", { userInSession: req.session.currentUser });
 });
 
-//search and all - works!!1
-/*  function escapeRegex(text) {
-  return text.replace(/[~[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-}
-
-router.get("/all", async (req, res, next) => {
-  if (req.query.search) {
-    const regex = new RegExp(escapeRegex(req.query.search), "gi");
-    Snippet.find({ name: regex })
-      .then((data) => {
-        if (data.length === 0) {
-          res.render("snippets/empty-search", {
-            data: data,
-            userInSession: req.session.currentUser,
-          });
-        } else {
-          res.render("snippets/all", {
-            data: data,
-            userInSession: req.session.currentUser,
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    Snippet.find()
-      .then((data) => {
-        res.render("snippets/all", {
-          data: data,
-          userInSession: req.session.currentUser,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-});  */
-
-//pagination  works!!!!1
-/* router.get("/snippets", (req, res, next) => {
-  let pageNo = parseInt(req.query.pageNo);
-  let size = 10;
-  var query = {};
-  let n
-  if (pageNo < 0 || pageNo === 0) {
-    response = {
-      error: true,
-      message: "invalid page number, should start with 1",
-    };
-    return res.json(response);
-  }
-  query.skip = size * (pageNo - 1);
-  query.limit = size;
-  const amountOfSnippets = Snippet.countDocuments()
-  .then(count => {
-    countAllNum = Number(count);
-    if (countAllNum % size === 0) {
-      n = Math.floor(countAllNum / size);
-    } else {
-      n = Math.floor(countAllNum / size + 1);
-    }
-    return n
-  })
-  const paginatedSnippets =   Snippet.find({}, {}, query, n, function (err, data) {
-    if (err) {
-      response = { error: true, message: "Error fetching data" };
-    } else {
-      response = { error: false, message: data };
-    }
-  }); 
-  Promise.all([amountOfSnippets, paginatedSnippets])
-  .then(allData => {
-    console.log(req.query.pageNo)
-    const data = allData[1]
-    //console.log(data[0])
-   // console.log(data[1])
-    res.render("snippets/all", {
-      data,
-      pagination: {
-        page: pageNo, // The current page the user is on
-        pageCount: n // The total number of available pages
-      },
-      userInSession: req.session.currentUser
-    });
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  })
- */
-
 function escapeRegex(text) {
   return text.replace(/[~[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
 router.get("/all", async (req, res, next) => {
   let pageNo = parseInt(req.query.pageNo);
-  let size = 8;
+  let size = 4;
   var query = {};
   let n;
   if (pageNo < 0 || pageNo === 0) {
@@ -180,79 +88,6 @@ router.get("/all", async (req, res, next) => {
     });
   }
 });
-
-
-
-/* router.get("/snippets", (req, res, next) => {
-  let pageNo = parseInt(req.query.pageNo);
-  let size = 10;
-  var query = {};
-  let n
-  if (pageNo < 0 || pageNo === 0) {
-    response = {
-      error: true,
-      message: "invalid page number, should start with 1",
-    };
-    return res.json(response);
-  }
-  query.skip = size * (pageNo - 1);
-  query.limit = size;
-  const amountOfSnippets = Snippet.countDocuments()
-  .then(count => {
-    countAllNum = Number(count);
-    if (countAllNum % size === 0) {
-      n = Math.floor(countAllNum / size);
-    } else {
-      n = Math.floor(countAllNum / size + 1);
-    }
-    return n
-  })
-  const paginatedSnippets =   Snippet.find({}, {}, query, n, function (err, data) {
-    if (err) {
-      response = { error: true, message: "Error fetching data" };
-    } else {
-      response = { error: false, message: data };
-    }
-  }); 
-  Promise.all([amountOfSnippets, paginatedSnippets])
-  .then(allData => {
-    console.log(req.query.pageNo)
-    const data = allData[1]
-    //console.log(data[0])
-   // console.log(data[1])
-    res.render("snippets/all", {
-      data,
-      pagination: {
-        page: pageNo, // The current page the user is on
-        pageCount: n // The total number of available pages
-      },
-      userInSession: req.session.currentUser
-    });
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }) */
-
-/*   Promise.all([amountOfSnippets, paginatedSnippets])
-  .then(allData => {
-    console.log(req.query.pageNo)
-    const data = allData[1]
-    //console.log(data[0])
-   // console.log(data[1])
-    res.render("snippets/all", {
-      data,
-      pagination: {
-        page: pageNo, // The current page the user is on
-        pageCount: n // The total number of available pages=
-      },
-      userInSession: req.session.currentUser
-    });
-    })
-    .catch(err => {
-      console.log(err)
-    }) */
-// })
 
 //detailed link
 router.get("/snippet/:id", (req, res, next) => {

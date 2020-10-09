@@ -19,11 +19,13 @@
                 </div>
             </div>
         </div>
-        <div class="profile-snippets">
+        <div class="snip-prof-size">
             {{#if snippets}}
             <h4>List of the snippets which you created:</h4>
             {{#each snippets}}
-            <h6><a href="/snippet/{{_id}}">{{name}}</a></h6>
+            <div  class="profile-snippets">
+                <div class="one-link"><a href="/snippet/{{_id}}">{{name}}</a></div>
+            </div>
             {{/each}}
             {{else}}
             <h3>Here you will the created snippets</h3>

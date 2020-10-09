@@ -86,7 +86,7 @@ header {
 
 .signup {
   position: relative;
-  left: 50px;
+  left: 30px;
 }
 
 /* 1st page with the search  */
@@ -295,7 +295,7 @@ width: 90%;
 
 .put-inside  {
   position: absolute;
-  top: 60%;
+  top: 58%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
@@ -332,14 +332,19 @@ width: 90%;
   background-color: #DEF7DB;
   display: flex;
   flex-direction: column;
+  margin-bottom: 5px;
 }
 
 .snippet-data-info  p {
-  text-align: left;
+  text-align: center;
 }
 .user-info-data {
   text-align: left;
+  font-size: 1.1em;
 }
+
+
+
 .add-connection form select{
   text-align: center;
   margin-bottom: 10px;
@@ -578,8 +583,25 @@ code {
 }
 
 .profile-snippets {
+ 
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+  align-content: center;
+  width: 40px;
 }
+
+.snip-prof-size {
+  height: 300px;
+}
+ .one-link {
+   width: 20px;
+   text-align: center;
+}
+ 
+
 
 /* edit profile */
 .edit-profile-info {
@@ -759,7 +781,7 @@ footer {
     margin: 30px auto;
   }
   .real-one {
-    width: 200px;
+    width: 150px;
     height: 150px;
   }
   .one-snippet-info h4 {
@@ -768,6 +790,9 @@ footer {
   .one-snippet-image {
     width: 80px;
   }
+  .signup-inputs {
+    top: 60%;
+  }  
 }
 
 @media screen and (min-width: 690px) and (max-width: 768px) {
@@ -854,38 +879,48 @@ footer {
     width: 500px;
   }
     .user-info-data {
-    font-size: 2em;
+    font-size: 1.5em;
   }
   .snippet-data-info {
-    font-size: 1.5em;
+    font-size: 1.1em;
     font-weight: bold;
     margin-left: 20px;
     width: 300px;
   }
   .snippet-view {
     width: 600px;
-    height: 300px;
+    height: 250px;
     font-size: 1.1em;
   }
   .add-connection {
-    font-size: 1.2em;
+    font-size: 1.1em;
   }
   .add-connection form select{
     font-size: 1.1em;
   }
   .add-connection form  button {
-    padding: 15px;
+    padding: 10px;
     background-color: #B1EDAA;
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    font-size: 1.1em;
+    margin-bottom: 5px;
   } 
+  .snippet-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
   .snippet-buttons a {
     font-size: 1.2em;
     margin-left: 10px;
     margin-bottom: 10px;
+   
   }
   .wrapper div {
     font-size: 1.3em; 
+  }
+  .put-inside {
+    margin-top: 20px;
+    font-size: 0.9em;
   }
 }
 
@@ -970,11 +1005,15 @@ footer {
     flex-direction: row;
   }
   .put-inside {
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
   .snippet-view {
     width: 600px;
     height: 300px;
+  }
+  .one-snippet-whole {
+    display: flex;
+    flex-direction: row;
   }
 }
 

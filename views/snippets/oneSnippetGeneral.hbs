@@ -1,30 +1,36 @@
 <div class="one-snippet-page">
-    <div class="banner-one-snippet"></div>
-    <div class="one-snippet-whole">
-        <div class="one-snippet-info">
-            <h3>{{oneSnippet.name}}</h3>
-            <p> {{oneSnippet.description}}</p>
-            <p>{{oneSnippet.tag}}</p>
-            <p>{{oneSnippet.extension}}</p>
-            {{#if oneSnippet.connections}}
-            <p>Maybe you also will work with this files:</p>
-            {{#each oneSnippet.connections}}
-            <a href="/snippet/{{_id}}">{{name}}</a>
-            {{/each}}
-            {{/if}}
+    <div class="banner-one-snippet banner"></div>
+    <div class="put-inside">
+        <div class="one-snippet-whole">
+            <div class="one-snippet-info">
+                <div class="user-info-data">
+                <h3>{{oneSnippet.name}}</h3>
+                <p> {{oneSnippet.description}}</p>
+                <p>{{oneSnippet.extension}}</p>
+                <p>Tag: {{oneSnippet.tag}}</p>
+                
+            </div>
+            <div class="snippet-data-info">
+                {{#if oneSnippet.connections}}
+                <p>Maybe you also will work with this files:</p>
+                {{#each oneSnippet.connections}}
+                <a href="/snippet/{{_id}}">{{name}}</a>
+                {{/each}}
+                {{/if}}
+            </div>
         </div>
         <div class="code-snippet">
-            <textarea disabled class="scroll-box">{{oneSnippet.snippet}}</textarea>
+            <textarea disabled class="scroll-box snippet-view">{{oneSnippet.snippet}}</textarea>
         </div>
+        {{#if userInSession}}
+        {{else}}
+        <div>
+            <p>Want to add your snippet? Sign up!</p>
+            <a href="/signup">Login</a>
+        </div>
+        {{/if}}
     </div>
-    {{#if errorMessage}}
-    <p>{{ errorMessage }}</p>
-    {{/if}}
 </div>
-{{#if userInSession}}
-{{else}}
-<div>
-    <p>Want to add your snippet? Sign up!</p>
-    <a href="/signup">Login</a>
-</div>
+{{#if errorMessage}}
+<p>{{ errorMessage }}</p>
 {{/if}}
