@@ -770,6 +770,15 @@ footer {
   .username {
     margin-left: 5px;
   }
+  .avatar {
+    width: 100px;
+  }
+  .real-one {
+    width: 200px;
+  }
+  .real-one img{
+    width: 70px;
+  }
 }
 
 @media screen and (min-width: 415px) and (max-width: 768px) {
@@ -1024,4 +1033,5 @@ footer {
     flex-direction: row;
   }
 }
+
 
