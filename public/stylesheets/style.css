@@ -1034,15 +1034,22 @@ footer {
   }
   .put-inside {
     font-size: 1.3em;
+    top: 54%; 
   }
   .snippet-view {
     width: 600px;
-    height: 650px;
+    height: 600px;
+    margin-bottom: 0;
   }
   .one-snippet-whole {
     display: flex;
     flex-direction: row;
   }
+  .snippet-buttons {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
 }
 
 
