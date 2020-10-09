@@ -28,9 +28,13 @@
             </div>
             {{/each}}
             {{else}}
-            <h3>Here you will the created snippets</h3>
+            <h3>Here you will see the created snippets</h3>
             {{/if}}
-            <a class="create-snippet-link" href="/{{userInSession._id}}/create">Create a snippet</a>
+            <div class="create-snippet-link-button">
+                <a class="create-snippet-link" href="/{{userInSession._id}}/create">Create a snippet</a>
+            </div>
+             
         </div>
+       
     </div>
 </div>

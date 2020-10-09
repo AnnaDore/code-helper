@@ -123,7 +123,7 @@ router.get("/general/snippet/:id", (req, res, next) => {
     });
 });
 
-router.post("/snippet/:id", async (req, res, next) => {
+/* router.post("/snippet/:id", async (req, res, next) => {
   const { connections } = req.body;
   console.log(connections);
   try {
@@ -143,7 +143,31 @@ router.post("/snippet/:id", async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-});
+}); */
+
+router.post("/snippet/:id", async (req, res, next) => {
+  const { connections } = req.body;
+  console.log(connections);
+  try {
+    await Snippet.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $set: { connections } },
+      { new: true }
+    );
+    for (let i; i <= connections.length; i++) {
+      await Snippet.findByIdAndUpdate(
+        { _id: id },
+        { $set: { connections: req.params.id } },
+        { new: true }
+      );
+    }
+    res.redirect("/snippet/" + req.params.id);
+  } catch (err) {
+    console.log(err);
+  }
+
+}); 
+
 
 router.get("/snippet/edit/:id", checkLogin, (req, res, next) => {
   const tag = Snippet.schema.path("tag").enumValues;

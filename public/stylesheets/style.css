@@ -581,6 +581,9 @@ code {
   text-decoration: none;
   border: 2px green solid;
 }
+.create-snippet-link-button {
+  margin-top: 20px;
+}
 
 .profile-snippets {
  
@@ -591,6 +594,7 @@ code {
   flex-flow: column wrap;
   align-content: center;
   width: 40px;
+  margin-bottom: 5px;
 }
 
 .snip-prof-size {
