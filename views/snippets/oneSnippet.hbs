@@ -28,7 +28,7 @@
                 <p>Do you want to connect this file?</p>
                 <form action="/snippet/{{oneSnippet.id}}" method="post">
                     <select multiple name="connections" id="">
-                        <option disabled>{{otherSnippets.[0].name}}</option>
+                        <option disabled>find a snippet to connect</option>
                         {{#each otherSnippets }}
                         <option value="{{id}}">{{name}}</option>
                         {{/each}}

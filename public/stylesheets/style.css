@@ -589,11 +589,11 @@ code {
  
   text-align: center;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-flow: column wrap;
-  align-content: center;
-  width: 40px;
+ 
+ 
   margin-bottom: 5px;
 }
 
@@ -601,7 +601,6 @@ code {
   height: 300px;
 }
  .one-link {
-   width: 20px;
    text-align: center;
 }
  
@@ -925,6 +924,11 @@ footer {
   .put-inside {
     margin-top: 20px;
     font-size: 0.9em;
+  }
+  .profile-info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
   }
 }
 
