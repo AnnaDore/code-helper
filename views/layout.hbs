@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <header>
+  <header class="header" id="myHeader">
     <div class="home-search">
     <div>
       <a href="/"><img src="/images/home.png" alt="home"  class='home'></a>
@@ -33,7 +33,10 @@
       {{/if}}
     </div>
   </header>
-  {{{body}}}
+  <div class="content">
+      {{{body}}}
+  </div>
+
   <footer id="footer-scroll">
     <div class="wrapper">
       <div>
