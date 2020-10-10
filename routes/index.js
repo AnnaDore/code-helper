@@ -123,7 +123,7 @@ router.get("/general/snippet/:id", (req, res, next) => {
     });
 });
 
-//add connections, works only for 2 added snippets
+
 router.post("/snippet/:id", async (req, res, next) => {
   const { connections } = req.body;
   console.log(typeof connections);

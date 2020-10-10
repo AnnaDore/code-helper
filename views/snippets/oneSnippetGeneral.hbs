@@ -4,33 +4,62 @@
         <div class="one-snippet-whole">
             <div class="one-snippet-info">
                 <div class="user-info-data">
-                <h3>{{oneSnippet.name}}</h3>
-                <p> {{oneSnippet.description}}</p>
-                <p>{{oneSnippet.extension}}</p>
-                <p>Tag: {{oneSnippet.tag}}</p>
-                
+                    <h3>{{oneSnippet.name}}</h3>
+                    <p> {{oneSnippet.description}}</p>
+                    <p>{{oneSnippet.extension}}</p>
+                    <p>Tag: {{oneSnippet.tag}}</p>
+
+                </div>
+                <div class="snippet-data-info">
+                    {{#if oneSnippet.connections}}
+                    <p>Maybe you also will work with this files:</p>
+                    {{#each oneSnippet.connections}}
+                    <a href="/general/snippet/{{_id}}">{{name}}</a>
+                    {{/each}}
+                    {{/if}}
+                </div>
             </div>
-            <div class="snippet-data-info">
-                {{#if oneSnippet.connections}}
-                <p>Maybe you also will work with this files:</p>
-                {{#each oneSnippet.connections}}
-                <a href="/general/snippet/{{_id}}">{{name}}</a>
-                {{/each}}
-                {{/if}}
+            <div class="code-snippet">
+                <textarea disabled class="scroll-box snippet-view">{{oneSnippet.snippet}}</textarea>
             </div>
+            {{#if userInSession}}
+            {{else}}
+            <div>
+                <p>Want to add your snippet? Sign up!</p>
+                <a href="/signup">Login</a>
+            </div>
+            {{/if}}
         </div>
-        <div class="code-snippet">
-            <textarea disabled class="scroll-box snippet-view">{{oneSnippet.snippet}}</textarea>
+
+
+{{!--         {{#if comments}}
+
+        <div class="comments">
+            <p>{{USERDATA.USERNAME}}</p>
+            <img src="{{USERDATA.AVATAR}}" alt="user-avatar">
+           <P>{{COMMENTDATA.TEXT}}</P>
         </div>
-        {{#if userInSession}}
+        <form action="/{{SNIPPETDATA._id}}/add-comment" method="post">
+            <p>TAKE THE AVATAR AND USERNAME FROM THE LOGGED IN USER DATA</p>
+
+            <input type="text" minlength="1" placeholder="leave a comment" name="text">
+            <button type="submit">Add a comment</button>
+        </form>
+
         {{else}}
-        <div>
-            <p>Want to add your snippet? Sign up!</p>
-            <a href="/signup">Login</a>
-        </div>
-        {{/if}}
+
+
+
+        {{/if}} --}}
+        <p>{{oneSnippet.comments}}</p>
+
+                <form action="/{{oneSnippet._id}}/TEST" method="post">
+            <p>TAKE THE AVATAR AND USERNAME FROM THE LOGGED IN USER DATA</p>
+
+            <input type="text" minlength="1" placeholder="leave a comment" name="text" >
+            <button type="submit">Add a comment</button>
+        </form>
     </div>
-</div>
-{{#if errorMessage}}
-<p>{{ errorMessage }}</p>
-{{/if}}
+    {{#if errorMessage}}
+    <p>{{ errorMessage }}</p>
+    {{/if}}

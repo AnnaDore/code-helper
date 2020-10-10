@@ -6,6 +6,7 @@ const Snippet = require("../models/Snippet");
 const checkLogin = require("../middleware/checkLogin");
 const session = require("../configs/session.config");
 const User = require("../models/User");
+const Comment = require('../models/Comment')
 const mongoose = require("mongoose");
 const uploadCloud = require("../configs/cloudinary");
 
@@ -96,62 +97,6 @@ router.post("/:id/create", async (req, res, next) => {
   }
 });
 
-//create snippet - work but without restore tag and extension after the errors
-/* router.post("/:id/create", async (req, res, next) => {
-  const { name, description, snippet, extension, tag } = req.body;
-  console.log(req.session.currentUser, "user");
-  console.log(req.body);
-  let imageUrl;
-  if (extension === "HTML") {
-    imageUrl = "/images/html.jpg";
-  } else if (extension === "CSS") {
-    imageUrl = "/images/css.jpg";
-  } else {
-    imageUrl = "/images/js.jpg";
-  }
-  try {
-    const snippetName = await Snippet.findOne({ name });
-    if (snippetName) {
-      res.render("snippets/create", {
-        errorMessage: "The name exists",
-        userInSession: req.session.currentUser,
-      });
-      return;
-    }
-    const snippetCode = await Snippet.findOne({ snippet });
-    if (snippetCode) {
-      res.render("snippets/create", {
-        errorMessage: "The snippet exists",
-        userInSession: req.session.currentUser,
-      });
-      return;
-    }
-    if (!name.length || !snippet.length) {
-      res.render("snippets/create", {
-        errorMessage: "Name or snippet cant be empty",
-        userInSession: req.session.currentUser,
-      });
-      return;
-    }
-    const snippetVar = await Snippet.create({
-      name: name,
-      description: description,
-      snippet: snippet,
-      extension: extension,
-      tag: tag,
-      imageUrl: imageUrl,
-      creator: req.session.currentUser._id,
-    });
-    console.log(snippetVar, "snippetVar");
-    await User.findByIdAndUpdate(
-      { _id: req.session.currentUser._id },
-      { $push: { snippets: snippetVar._id } }
-    );
-    res.redirect(`/snippet/${snippetVar._id}`);
-  } catch (errorMessage) {
-    console.log(errorMessage);
-  }
-}); */
 
 router.get("/snippet/edit/:id", checkLogin, (req, res, next) => {
   const tag = Snippet.schema.path("tag").enumValues;
@@ -228,5 +173,38 @@ router.post(
       });
   }
 );
+
+//comments attempt=
+router.post('/:id/TEST',   (req, res, next) => {
+  const {text} = req.body
+  const snippet = req.params.id
+  
+    const userData =   User.findById( req.session.currentUser._id).populate()
+    .then(data => {
+     // console.log(data)
+      console.log(req.body.text)
+      const createComment =  Comment.create({
+        usName: req.session.currentUser.username,
+        avatar: data.avatarPath,
+        text: text, 
+        snippet: snippet
+      })
+      return createComment
+    })
+    .then((createComment) => {
+      console.log(createComment + " create comment")
+       const updateSnippet =  Snippet.findByIdAndUpdate({_id: createComment.snippet }, {$push: {comments: createComment._id}}, {new: true})
+      
+      return updateSnippet
+    })
+    res.redirect(`/general/snippet/${req.params.id}`)
+  
+  .catch(err => {
+    console.log(err)
+  })
+
+})
+
+
 
 module.exports = router;
