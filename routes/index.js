@@ -123,45 +123,23 @@ router.get("/general/snippet/:id", (req, res, next) => {
     });
 });
 
-/* router.post("/snippet/:id", async (req, res, next) => {
-  const { connections } = req.body;
-  console.log(connections);
-  try {
-    await Snippet.findByIdAndUpdate(
-      { _id: req.params.id },
-      { $set: { connections } },
-      { new: true }
-    );
-    connections.forEach(async (id) => {
-      await Snippet.findByIdAndUpdate(
-        { _id: id },
-        { $set: { connections: req.params.id } },
-        { new: true }
-      );
-    });
-    res.redirect("/snippet/" + req.params.id);
-  } catch (err) {
-    console.log(err);
-  }
-}); */
-
+//add connections, works only for 2 added snippets
 router.post("/snippet/:id", async (req, res, next) => {
   const { connections } = req.body;
-  console.log(connections.length + " length");
-  
+  console.log(typeof connections);
+  console.log(connections)
   try {
     await Snippet.findByIdAndUpdate(
       { _id: req.params.id },
       { $set: { connections } },
       { new: true }
     );
-    if (connections.length === 24) {
-       Snippet.findByIdAndUpdate(
-        { _id: connections.id },
-        { $set: { connections: req.params.id } },
-        { new: true }
-      );
-      res.redirect("/snippet/" + req.params.id);
+    if (typeof connections === "string") {
+      await Snippet.findByIdAndUpdate(
+        {_id: connections}, 
+        { $set: {connections:req.params.id }}, 
+          {new: true}
+      )
     } else {
       connections.forEach(async (id) => {
         await Snippet.findByIdAndUpdate(
@@ -170,13 +148,12 @@ router.post("/snippet/:id", async (req, res, next) => {
           { new: true }
         );
       });
-      res.redirect("/snippet/" + req.params.id);
     }
+    res.redirect("/snippet/" + req.params.id);
   } catch (err) {
     console.log(err);
   }
-}); 
-
+});
 
 router.get("/snippet/edit/:id", checkLogin, (req, res, next) => {
   const tag = Snippet.schema.path("tag").enumValues;
